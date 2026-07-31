@@ -24,11 +24,6 @@
 body{
   margin:0;
   background: var(--bg);
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 28px 28px;
-  background-attachment: fixed;
   font-family:'IBM Plex Sans', sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -36,40 +31,33 @@ body{
 .wrap{
   max-width: 640px;
   margin: 0 auto;
-  padding: 20px 16px 100px;
+  padding: 16px 16px 90px;
 }
 header.top{
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   justify-content:space-between;
-  padding: 6px 2px 18px;
+  padding: 2px 2px 12px;
   border-bottom: 2px solid var(--ink);
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   gap: 10px;
 }
 header.top h1{
   font-family:'Space Grotesk', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight:700;
   letter-spacing: -0.01em;
   margin:0;
-  line-height:1.15;
-}
-header.top .sub{
-  font-family:'IBM Plex Mono', monospace;
-  font-size: 11px;
-  color: var(--ink-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  line-height:1;
 }
 .lang-btn{
   border:1.5px solid var(--line);
   background:#FBFCFC;
   border-radius:8px;
-  height:34px;
+  height:30px;
   padding:0 10px;
   font-family:'IBM Plex Mono', monospace;
-  font-size:12px;
+  font-size:11.5px;
   font-weight:600;
   color: var(--ink-soft);
   cursor:pointer;
@@ -82,90 +70,46 @@ header.top .sub{
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 18px 16px;
-  margin-bottom: 14px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
   box-shadow: 0 1px 0 rgba(22,35,44,0.03);
 }
 .step-head{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-bottom: 14px;
+  gap:8px;
+  margin-bottom: 8px;
 }
 .step-num{
   font-family:'IBM Plex Mono', monospace;
-  font-size:12px;
+  font-size:11px;
   font-weight:600;
   color: var(--steel);
   border: 1.5px solid var(--steel);
   border-radius: 50%;
-  width:24px;height:24px;
+  width:20px;height:20px;
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
 .step-title{
   font-family:'Space Grotesk', sans-serif;
-  font-size:15px;
+  font-size:13.5px;
   font-weight:600;
 }
-.step-title small{
-  display:block;
-  font-family:'IBM Plex Sans',sans-serif;
-  font-size:11.5px;
-  font-weight:400;
-  color: var(--ink-soft);
-  margin-top:1px;
-}
-
-.chip-grid{
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:8px;
-}
-.chip{
-  border:1.5px solid var(--line);
-  background: #FBFCFC;
-  border-radius:8px;
-  padding:10px 10px;
-  font-size:12.5px;
-  font-weight:500;
-  text-align:left;
-  cursor:pointer;
-  line-height:1.3;
-  color: var(--ink);
-  transition: border-color .12s, background .12s;
-}
-.chip.wide{ grid-column: 1 / -1; }
-.chip:active{ transform: translateY(1px); }
-.chip.selected{
-  border-color: var(--steel);
-  background: var(--steel-soft);
-  color: var(--steel);
-  font-weight:600;
-}
-.chip .tag{
-  display:block;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;
-  color: var(--ink-soft);
-  font-weight:400;
-  margin-top:2px;
-}
-.chip.selected .tag{ color: var(--steel); opacity:0.75; }
 
 .toggle-row{
   display:flex;
   gap:8px;
-  margin-bottom:12px;
+  margin-top:8px;
 }
 .toggle-row button{
   flex:1;
   border:1.5px solid var(--line);
   border-radius:8px;
   background: #FBFCFC;
-  padding:9px 6px;
+  padding:8px 6px;
   font-family:'IBM Plex Sans',sans-serif;
-  font-size:12.5px;
+  font-size:12px;
   font-weight:500;
   color: var(--ink-soft);
   cursor:pointer;
@@ -178,21 +122,12 @@ header.top .sub{
   font-weight:600;
 }
 
-label.field{
-  display:block;
-  font-size:11.5px;
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:0.04em;
-  color: var(--ink-soft);
-  margin: 4px 0 6px;
-}
 select, input[type=number]{
   width:100%;
   font-family:'IBM Plex Mono', monospace;
-  font-size:15px;
+  font-size:14.5px;
   font-weight:500;
-  padding:11px 10px;
+  padding:10px 10px;
   border-radius:8px;
   border:1.5px solid var(--line);
   background: #FBFCFC;
@@ -217,7 +152,7 @@ select:focus, input:focus{
 }
 
 .hint{
-  font-size:11.5px;
+  font-size:11px;
   color: var(--ink-soft);
   margin-top:6px;
   line-height:1.4;
@@ -226,10 +161,8 @@ select:focus, input:focus{
 
 .filter-row{
   display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:8px;
+  justify-content:flex-end;
+  margin-top:6px;
 }
 .reset-link{
   font-family:'IBM Plex Mono',monospace;
@@ -240,33 +173,29 @@ select:focus, input:focus{
   background:none;border:none;padding:0;
 }
 
-.param-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
+.row2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+.param-cell label{
+  display:block;
+  font-size:10.5px;
+  font-weight:600;
+  color: var(--ink-soft);
+  margin-bottom:4px;
 }
-.param-row:last-child{ border-bottom:none; }
-.param-label{ font-size:13px; font-weight:500; }
-.param-label small{ display:block; color:var(--ink-soft); font-size:11px; font-weight:400; margin-top:1px;}
-.param-input{ display:flex; align-items:center; gap:6px; }
-.param-input input{
-  width:72px;
-  text-align:right;
-  padding:8px 8px;
-  font-size:14px;
+.param-cell .param-default{
+  font-size:10px;
+  color: var(--ink-soft);
+  margin-top:3px;
 }
-.param-unit{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); width:20px; }
+.param-input-row{ display:flex; align-items:center; gap:5px; }
+.param-unit{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); }
 
 /* Result card */
 .result-card{
   background: var(--ink);
   color:#fff;
   border-radius: var(--radius);
-  padding: 22px 18px 18px;
-  margin-top: 6px;
+  padding: 18px 16px 14px;
+  margin-top: 4px;
   position:relative;
   overflow:hidden;
 }
@@ -278,64 +207,64 @@ select:focus, input:focus{
 }
 .result-eyebrow{
   font-family:'IBM Plex Mono',monospace;
-  font-size:10.5px;
+  font-size:10px;
   text-transform:uppercase;
   letter-spacing:0.08em;
   color: #9FB3BE;
-  margin-bottom:6px;
+  margin-bottom:4px;
 }
 .result-torque{
   font-family:'Space Grotesk',sans-serif;
-  font-size:44px;
+  font-size:40px;
   font-weight:700;
   line-height:1;
   margin: 2px 0 2px;
   letter-spacing:-0.01em;
 }
-.result-torque span{ font-size:18px; font-weight:500; color:#B9C6CC; margin-left:4px;}
+.result-torque span{ font-size:16px; font-weight:500; color:#B9C6CC; margin-left:4px;}
 .result-alt{
   font-family:'IBM Plex Mono',monospace;
-  font-size:12px;
+  font-size:11.5px;
   color:#9FB3BE;
-  margin-bottom:14px;
+  margin-bottom:10px;
 }
-.gauge-wrap{ display:flex; justify-content:center; margin: 6px 0 2px; }
+.gauge-wrap{ display:flex; justify-content:center; margin: 4px 0 0; }
 .detail-grid{
   display:grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px 16px;
+  gap: 8px 16px;
   font-family:'IBM Plex Mono', monospace;
-  font-size:12px;
+  font-size:11.5px;
   border-top: 1px solid rgba(255,255,255,0.15);
-  padding-top:14px;
-  margin-top:12px;
+  padding-top:10px;
+  margin-top:10px;
 }
-.detail-grid .d-label{ color:#9FB3BE; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em;}
+.detail-grid .d-label{ color:#9FB3BE; font-size:10px; text-transform:uppercase; letter-spacing:0.04em;}
 .detail-grid .d-val{ font-weight:600; }
 .warn{
-  margin-top:14px;
+  margin-top:12px;
   background: rgba(214,90,46,0.18);
   border:1px solid rgba(214,90,46,0.4);
   border-radius:8px;
-  padding:9px 11px;
-  font-size:11.5px;
+  padding:8px 10px;
+  font-size:11px;
   color:#FBD9C8;
   line-height:1.4;
 }
 .empty-result{
   font-family:'IBM Plex Mono',monospace;
-  font-size:12.5px;
+  font-size:12px;
   color:#9FB3BE;
   text-align:center;
-  padding: 10px 0 2px;
+  padding: 8px 0 2px;
 }
 
 footer.foot{
   text-align:center;
   font-family:'IBM Plex Mono', monospace;
-  font-size:10.5px;
+  font-size:10px;
   color: var(--ink-soft);
-  margin-top: 22px;
+  margin-top: 16px;
   line-height:1.6;
 }
 </style>
@@ -344,10 +273,7 @@ footer.foot{
 <div class="wrap">
 
   <header class="top">
-    <div>
-      <h1 id="tTitle">Couple de<br>serrage</h1>
-      <div class="sub" id="tHeaderSub">HVB · Boulonnerie</div>
-    </div>
+    <h1 id="tTitle">Couple de serrage</h1>
     <button class="lang-btn" id="langBtn" title="FR / EN"></button>
   </header>
 
@@ -355,13 +281,13 @@ footer.foot{
   <div class="card">
     <div class="step-head">
       <div class="step-num">01</div>
-      <div class="step-title" id="tStep1Title">Type d'application<small id="tStep1Sub">Détermine la norme de tête et le % de yield par défaut</small></div>
+      <div class="step-title" id="tStep1Title">Type d'application</div>
     </div>
-    <div class="chip-grid" id="appTypeGrid"></div>
-    <div id="imperialToggleWrap" style="display:none; margin-top:10px;">
+    <div class="select-wrap"><select id="appTypeSelect"></select></div>
+    <div id="imperialToggleWrap" style="display:none;">
       <div class="toggle-row" id="bracketUnitToggle">
-        <button data-v="metric" class="active" id="tMetricToggleBtn">Métrique (DIN 933)</button>
-        <button data-v="imperial" id="tImperialToggleBtn">Impérial (ASME)</button>
+        <button data-v="metric" class="active" id="tMetricToggleBtn">Métrique</button>
+        <button data-v="imperial" id="tImperialToggleBtn">Impérial</button>
       </div>
     </div>
   </div>
@@ -370,20 +296,9 @@ footer.foot{
   <div class="card">
     <div class="step-head">
       <div class="step-num">02</div>
-      <div class="step-title" id="tStep2Title">Taille de la vis<small id="standardLabel">—</small></div>
+      <div class="step-title" id="tStep2Title">Taille de la vis</div>
     </div>
-    <div class="toggle-row" id="sizeModeToggle">
-      <button data-v="thread" class="active" id="tByThreadBtn">Par diamètre</button>
-      <button data-v="socket" id="tBySocketBtn">Par douille / clé</button>
-    </div>
-    <div id="threadFieldWrap">
-      <label class="field" id="tFieldDiameter">Diamètre</label>
-      <div class="select-wrap"><select id="threadSelect"></select></div>
-    </div>
-    <div id="socketFieldWrap" style="display:none;">
-      <label class="field" id="tFieldSocket">Taille de douille / clé Allen</label>
-      <div class="select-wrap"><select id="socketSelect"></select></div>
-    </div>
+    <div class="select-wrap"><select id="socketSelect"></select></div>
     <div class="hint" id="boltHint"></div>
   </div>
 
@@ -391,9 +306,8 @@ footer.foot{
   <div class="card">
     <div class="step-head">
       <div class="step-num">03</div>
-      <div class="step-title" id="tStep3Title">Matière<small id="tStep3Sub">Utilisée pour Rp0,2 selon la plage de diamètre</small></div>
+      <div class="step-title" id="tStep3Title">Matière</div>
     </div>
-    <label class="field" id="tFieldGrade">Nuance</label>
     <div class="select-wrap"><select id="materialSelect"></select></div>
     <div class="hint" id="materialHint"></div>
     <div class="filter-row">
@@ -405,17 +319,23 @@ footer.foot{
   <div class="card">
     <div class="step-head">
       <div class="step-num">04</div>
-      <div class="step-title" id="tStep4Title">Paramètres<small id="tStep4Sub">Valeurs par défaut modifiables</small></div>
+      <div class="step-title" id="tStep4Title">Paramètres</div>
     </div>
-    <div class="param-row">
-      <div class="param-label" id="tFrictionLabel">Coefficient de friction µ<small id="tFrictionDefault">Défaut : 0,15</small></div>
-      <div class="param-input"><input type="number" id="frictionInput" step="0.01" min="0.01" max="1" value="0.15"></div>
+    <div class="row2">
+      <div class="param-cell">
+        <label id="tFrictionLabel">µ</label>
+        <div class="param-input-row"><input type="number" id="frictionInput" step="0.01" min="0.01" max="1" value="0.15"></div>
+        <div class="param-default" id="tFrictionDefault">Défaut : 0,15</div>
+      </div>
+      <div class="param-cell">
+        <label id="tPreloadLabel">% Rp0,2</label>
+        <div class="param-input-row"><input type="number" id="preloadInput" step="1" min="1" max="100" value="70"><span class="param-unit">%</span></div>
+        <div class="param-default" id="preloadDefaultLabel">—</div>
+      </div>
     </div>
-    <div class="param-row">
-      <div class="param-label" id="tPreloadLabel">Précontrainte (% de Rp0,2)<small id="preloadDefaultLabel">Défaut selon l'application</small></div>
-      <div class="param-input"><input type="number" id="preloadInput" step="1" min="1" max="100" value="70"><span class="param-unit">%</span></div>
+    <div class="filter-row">
+      <button class="reset-link" id="resetParamsBtn">↺ <span id="tResetParams">Réinitialiser</span></button>
     </div>
-    <button class="reset-link" id="resetParamsBtn" style="margin-top:8px;">↺ <span id="tResetParams">Réinitialiser les valeurs par défaut</span></button>
   </div>
 
   <!-- RESULT -->
@@ -451,28 +371,17 @@ const MATERIALS = [{"name": "ASTM A320 B8M Class 2", "min_size": 0.0, "max_size"
 
 const I18N = {
   fr: {
-    title: 'Couple de<br>serrage',
-    headerSub: 'HVB · Boulonnerie',
+    title: 'Couple de serrage',
     step1Title: "Type d'application",
-    step1Sub: "Détermine la norme de tête et le % de yield par défaut",
     step2Title: "Taille de la vis",
-    step2SubDefault: "Sélectionnez d'abord une application",
-    byThread: 'Par diamètre',
-    bySocket: 'Par douille / clé',
-    fieldDiameter: 'Diamètre',
-    fieldSocket: 'Taille de douille / clé Allen',
-    metricToggle: 'Métrique (DIN 933)',
-    imperialToggle: 'Impérial (ASME)',
+    metricToggle: 'Métrique',
+    imperialToggle: 'Impérial',
     step3Title: 'Matière',
-    step3Sub: 'Utilisée pour Rp0,2 selon la plage de diamètre',
-    fieldGrade: 'Nuance',
     step4Title: 'Paramètres',
-    step4Sub: 'Valeurs par défaut modifiables',
-    frictionLabel: 'Coefficient de friction µ',
+    frictionLabel: 'µ (coef. de frottement)',
     frictionDefault: 'Défaut : 0,15',
-    preloadLabel: 'Précontrainte (% de Rp0,2)',
-    preloadDefaultPrefix: "Défaut selon l'application",
-    resetParams: 'Réinitialiser les valeurs par défaut',
+    preloadLabel: '% Rp0,2',
+    resetParams: 'Réinitialiser',
     resultPlaceholder: 'Sélectionnez une application, une vis et une matière pour obtenir le couple.',
     footerFormula: 'T = 0,9 · (0,16·p + 0,583·µ·da + 0,5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0,2 · As',
     footerNote: 'Outil interne — vérifier toute valeur critique avant application.',
@@ -488,32 +397,22 @@ const I18N = {
     materialRange: (min,max,y,rm)=>`Plage appliquée : Ø ${min}–${max} mm → Rp0,2 = <b>${y} MPa</b>, Rm = ${rm} MPa`,
     boltHint: (d,p,key,std)=>`Ø nominal <b>${d} mm</b> · pas <b>${p}</b> · douille <b>${key}</b> · ${std}`,
     gaugeCaption: (pct,tmax,mu)=>`${pct}% du couple à 100% du Rp0,2 (${tmax} N·m à µ=${mu})`,
-    showAllMaterials: '+ Afficher toutes les matières',
-    showRecommendedMaterials: '— Afficher les matières recommandées uniquement',
+    showAllMaterials: '+ Toutes les matières',
+    showRecommendedMaterials: '— Matières recommandées',
+    preloadDefault: (pct)=>`Défaut : ${pct}%`,
   },
   en: {
-    title: 'Tightening<br>torque',
-    headerSub: 'HVB · Bolting',
+    title: 'Tightening torque',
     step1Title: 'Application type',
-    step1Sub: 'Sets the head standard and default % of yield',
     step2Title: 'Bolt size',
-    step2SubDefault: 'Select an application first',
-    byThread: 'By diameter',
-    bySocket: 'By socket / wrench',
-    fieldDiameter: 'Diameter',
-    fieldSocket: 'Socket / Allen key size',
-    metricToggle: 'Metric (DIN 933)',
-    imperialToggle: 'Imperial (ASME)',
+    metricToggle: 'Metric',
+    imperialToggle: 'Imperial',
     step3Title: 'Material',
-    step3Sub: 'Used for Rp0.2 based on the diameter range',
-    fieldGrade: 'Grade',
     step4Title: 'Parameters',
-    step4Sub: 'Editable defaults',
-    frictionLabel: 'Friction coefficient µ',
+    frictionLabel: 'µ (friction coef.)',
     frictionDefault: 'Default: 0.15',
-    preloadLabel: 'Preload (% of Rp0.2)',
-    preloadDefaultPrefix: 'Default for the selected application',
-    resetParams: 'Reset to default values',
+    preloadLabel: '% Rp0.2',
+    resetParams: 'Reset',
     resultPlaceholder: 'Select an application, a bolt and a material to get the torque.',
     footerFormula: 'T = 0.9 · (0.16·p + 0.583·µ·da + 0.5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0.2 · As',
     footerNote: 'Internal tool — verify any critical value before applying it.',
@@ -529,20 +428,21 @@ const I18N = {
     materialRange: (min,max,y,rm)=>`Applied range: Ø ${min}–${max} mm → Rp0.2 = <b>${y} MPa</b>, Rm = ${rm} MPa`,
     boltHint: (d,p,key,std)=>`Nominal Ø <b>${d} mm</b> · pitch <b>${p}</b> · socket <b>${key}</b> · ${std}`,
     gaugeCaption: (pct,tmax,mu)=>`${pct}% of the torque at 100% of Rp0.2 (${tmax} N·m at µ=${mu})`,
-    showAllMaterials: '+ Show all materials',
-    showRecommendedMaterials: '— Show recommended materials only',
+    showAllMaterials: '+ All materials',
+    showRecommendedMaterials: '— Recommended materials',
+    preloadDefault: (pct)=>`Default: ${pct}%`,
   }
 };
 
 const APP_TYPES = [
-  { id:'test_plug', label_fr:'Bouchons de test', label_en:'Test plugs', tag_fr:'DIN 933', tag_en:'DIN 933', standard:'DIN 933 / ISO 4017', preload:70 },
-  { id:'seat', label_fr:'Vis de siège', label_en:'Seat screws', tag_fr:'DIN 912 (Allen)', tag_en:'DIN 912 (Allen)', standard:'DIN 912 / ISO 4762', preload:70 },
-  { id:'body_bonnet', label_fr:'Body / Bonnet', label_en:'Body / Bonnet', tag_fr:'DIN 933', tag_en:'DIN 933', standard:'DIN 933 / ISO 4017', preload:70 },
-  { id:'bracket', label_fr:'Vis de bracket', label_en:'Bracket screws', tag_fr:'DIN 933 (ou impérial)', tag_en:'DIN 933 (or imperial)', standard:'DIN 933 / ISO 4017', preload:70, allowImperial:true },
-  { id:'flange_packing', label_fr:'Flange packing', label_en:'Flange packing', tag_fr:'DIN 933 · 25% Rp0,2', tag_en:'DIN 933 · 25% Rp0.2', standard:'DIN 933 / ISO 4017', preload:25 },
+  { id:'test_plug', label_fr:'Bouchons de test', label_en:'Test plugs', standard:'DIN 933 / ISO 4017', preload:70 },
+  { id:'seat', label_fr:'Vis de siège', label_en:'Seat screws', standard:'DIN 912 / ISO 4762', preload:70 },
+  { id:'body_bonnet', label_fr:'Body / Bonnet', label_en:'Body / Bonnet', standard:'DIN 933 / ISO 4017', preload:70 },
+  { id:'bracket', label_fr:'Vis de bracket', label_en:'Bracket screws', standard:'DIN 933 / ISO 4017', preload:70, allowImperial:true },
+  { id:'flange_packing', label_fr:'Flange packing', label_en:'Flange packing', standard:'DIN 933 / ISO 4017', preload:25 },
 ];
 
-// Matières recommandées par défaut, par application. null = pas de restriction.
+// Matières recommandées par défaut, par application. null/absent = pas de restriction.
 const DEFAULT_MATERIAL_PREFIX = {
   seat: 'ISO 3506-1 A4',
   bracket: 'ISO 3506-1 A4',
@@ -554,7 +454,6 @@ let state = {
   lang: 'fr',
   appType: null,
   bracketUnit: 'metric',
-  sizeMode: 'thread',
   boltIndex: null,
   materialName: null,
   friction: 0.15,
@@ -564,7 +463,6 @@ let state = {
 
 function t(key){ return I18N[state.lang][key]; }
 function appLabel(app){ return state.lang==='fr' ? app.label_fr : app.label_en; }
-function appTag(app){ return state.lang==='fr' ? app.tag_fr : app.tag_en; }
 
 function fmt(n, d=1){
   if (n === null || n === undefined || isNaN(n)) return '—';
@@ -610,24 +508,16 @@ function pickMaterialRow(materialName, d){
 
 /* ---------- static text application ---------- */
 function applyStaticText(){
-  document.getElementById('tTitle').innerHTML = t('title');
-  document.getElementById('tHeaderSub').textContent = t('headerSub');
-  document.getElementById('tStep1Title').firstChild.textContent = t('step1Title');
-  document.getElementById('tStep1Sub').textContent = t('step1Sub');
+  document.getElementById('tTitle').textContent = t('title');
+  document.getElementById('tStep1Title').textContent = t('step1Title');
   document.getElementById('tMetricToggleBtn').textContent = t('metricToggle');
   document.getElementById('tImperialToggleBtn').textContent = t('imperialToggle');
-  document.getElementById('tByThreadBtn').textContent = t('byThread');
-  document.getElementById('tBySocketBtn').textContent = t('bySocket');
-  document.getElementById('tFieldDiameter').textContent = t('fieldDiameter');
-  document.getElementById('tFieldSocket').textContent = t('fieldSocket');
-  document.getElementById('tStep3Title').firstChild.textContent = t('step3Title');
-  document.getElementById('tStep3Sub').textContent = t('step3Sub');
-  document.getElementById('tFieldGrade').textContent = t('fieldGrade');
-  document.getElementById('tStep4Title').firstChild.textContent = t('step4Title');
-  document.getElementById('tStep4Sub').textContent = t('step4Sub');
-  document.getElementById('tFrictionLabel').firstChild.textContent = t('frictionLabel');
+  document.getElementById('tStep2Title').textContent = t('step2Title');
+  document.getElementById('tStep3Title').textContent = t('step3Title');
+  document.getElementById('tStep4Title').textContent = t('step4Title');
+  document.getElementById('tFrictionLabel').textContent = t('frictionLabel');
   document.getElementById('tFrictionDefault').textContent = t('frictionDefault');
-  document.getElementById('tPreloadLabel').firstChild.textContent = t('preloadLabel');
+  document.getElementById('tPreloadLabel').textContent = t('preloadLabel');
   document.getElementById('tResetParams').textContent = t('resetParams');
   document.getElementById('resultEmpty').textContent = t('resultPlaceholder');
   document.getElementById('tFooterFormula').innerHTML = t('footerFormula');
@@ -653,29 +543,35 @@ document.getElementById('toggleAllMaterialsBtn').addEventListener('click', ()=>{
   render();
 });
 
-/* ---------- step 1 : application type ---------- */
-function renderAppTypes(){
-  const grid = document.getElementById('appTypeGrid');
-  grid.innerHTML = '';
+/* ---------- step 1 : application type (dropdown) ---------- */
+function renderAppTypeSelect(){
+  const sel = document.getElementById('appTypeSelect');
+  const prevValue = state.appType;
+  sel.innerHTML = '';
   APP_TYPES.forEach(app=>{
-    const btn = document.createElement('button');
-    btn.className = 'chip' + (state.appType===app.id ? ' selected':'');
-    btn.innerHTML = appLabel(app) + '<span class="tag">'+appTag(app)+'</span>';
-    btn.onclick = ()=>{
-      state.appType = app.id;
-      state.preload = app.preload;
-      document.getElementById('preloadInput').value = app.preload;
-      state.bracketUnit = 'metric';
-      state.boltIndex = null;
-      state.materialName = null;
-      state.showAllMaterials = false;
-      render();
-    };
-    grid.appendChild(btn);
+    const opt = document.createElement('option');
+    opt.value = app.id;
+    opt.textContent = appLabel(app);
+    sel.appendChild(opt);
   });
+  if (!state.appType) state.appType = APP_TYPES[0].id;
+  sel.value = state.appType;
+
   const app = APP_TYPES.find(a=>a.id===state.appType);
   document.getElementById('imperialToggleWrap').style.display = (app && app.allowImperial) ? 'block' : 'none';
 }
+
+document.getElementById('appTypeSelect').addEventListener('change', (e)=>{
+  const app = APP_TYPES.find(a=>a.id===e.target.value);
+  state.appType = app.id;
+  state.preload = app.preload;
+  document.getElementById('preloadInput').value = app.preload;
+  state.bracketUnit = 'metric';
+  state.boltIndex = null;
+  state.materialName = null;
+  state.showAllMaterials = false;
+  render();
+});
 
 document.getElementById('bracketUnitToggle').addEventListener('click', (e)=>{
   const btn = e.target.closest('button');
@@ -685,38 +581,17 @@ document.getElementById('bracketUnitToggle').addEventListener('click', (e)=>{
   render();
 });
 
-document.getElementById('sizeModeToggle').addEventListener('click', (e)=>{
-  const btn = e.target.closest('button');
-  if (!btn) return;
-  state.sizeMode = btn.dataset.v;
-  render();
-});
-
-/* ---------- step 2 : bolt size ---------- */
+/* ---------- step 2 : bolt size (single merged dropdown) ---------- */
 function renderBoltOptions(){
   const bolts = boltsForCurrentStandard();
-  const app = APP_TYPES.find(a=>a.id===state.appType);
-  document.getElementById('standardLabel').textContent = app ? (bolts.length ? bolts[0].standard : '') : t('step2SubDefault');
-
-  const threadSelect = document.getElementById('threadSelect');
-  const socketSelect = document.getElementById('socketSelect');
-  threadSelect.innerHTML = '';
-  socketSelect.innerHTML = '';
+  const sel = document.getElementById('socketSelect');
+  sel.innerHTML = '';
 
   if (!bolts.length){
-    threadSelect.innerHTML = '<option>—</option>';
-    socketSelect.innerHTML = '<option>—</option>';
+    sel.innerHTML = '<option>—</option>';
     document.getElementById('boltHint').textContent = '';
     return;
   }
-
-  bolts.forEach(b=>{
-    const realIdx = BOLTING.indexOf(b);
-    const opt = document.createElement('option');
-    opt.value = realIdx;
-    opt.textContent = b.thread;
-    threadSelect.appendChild(opt);
-  });
 
   const seen = new Set();
   bolts.forEach(b=>{
@@ -727,17 +602,13 @@ function renderBoltOptions(){
     const opt = document.createElement('option');
     opt.value = realIdx;
     opt.textContent = (typeof b.key_size === 'number' ? b.key_size + ' mm' : b.key_size) + '  →  ' + b.thread;
-    socketSelect.appendChild(opt);
+    sel.appendChild(opt);
   });
 
   if (state.boltIndex === null || !bolts.includes(BOLTING[state.boltIndex])){
-    state.boltIndex = parseInt(threadSelect.value || socketSelect.value);
+    state.boltIndex = parseInt(sel.value);
   }
-  threadSelect.value = state.boltIndex;
-  socketSelect.value = state.boltIndex;
-
-  document.getElementById('threadFieldWrap').style.display = state.sizeMode==='thread' ? 'block':'none';
-  document.getElementById('socketFieldWrap').style.display = state.sizeMode==='socket' ? 'block':'none';
+  sel.value = state.boltIndex;
 
   const b = BOLTING[state.boltIndex];
   if (b){
@@ -750,10 +621,6 @@ function renderBoltOptions(){
   }
 }
 
-document.getElementById('threadSelect').addEventListener('change', (e)=>{
-  state.boltIndex = parseInt(e.target.value);
-  render();
-});
 document.getElementById('socketSelect').addEventListener('change', (e)=>{
   state.boltIndex = parseInt(e.target.value);
   render();
@@ -823,7 +690,7 @@ function gaugeSVG(percentOfScale){
 
   const needleTip = pt(needleAngle, r*0.68);
 
-  return `<svg width="180" height="150" viewBox="0 0 180 150">
+  return `<svg width="170" height="130" viewBox="0 0 180 150">
     <path d="M ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} A ${trackR} ${trackR} 0 1 1 ${p1.x.toFixed(1)} ${p1.y.toFixed(1)}"
       fill="none" stroke="#2A3940" stroke-width="10" stroke-linecap="round"/>
     <path d="M ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} A ${trackR} ${trackR} 0 ${large} 1 ${pNeedleArc.x.toFixed(1)} ${pNeedleArc.y.toFixed(1)}"
@@ -836,9 +703,6 @@ function gaugeSVG(percentOfScale){
 
 /* ---------- toggle sync ---------- */
 function syncToggles(){
-  document.querySelectorAll('#sizeModeToggle button').forEach(b=>{
-    b.classList.toggle('active', b.dataset.v === state.sizeMode);
-  });
   document.querySelectorAll('#bracketUnitToggle button').forEach(b=>{
     b.classList.toggle('active', b.dataset.v === state.bracketUnit);
   });
@@ -847,7 +711,7 @@ function syncToggles(){
 /* ---------- main render ---------- */
 function render(){
   applyStaticText();
-  renderAppTypes();
+  renderAppTypeSelect();
   renderBoltOptions();
   renderMaterialOptions();
   syncToggles();
@@ -855,8 +719,7 @@ function render(){
   const bolt = BOLTING[state.boltIndex];
   const app = APP_TYPES.find(a=>a.id===state.appType);
 
-  document.getElementById('preloadDefaultLabel').textContent =
-    app ? (t('preloadDefaultPrefix')+' ('+appLabel(app)+'): '+app.preload+'%') : t('preloadDefaultPrefix');
+  document.getElementById('preloadDefaultLabel').textContent = app ? t('preloadDefault')(app.preload) : '';
 
   const resultEmpty = document.getElementById('resultEmpty');
   const resultContent = document.getElementById('resultContent');
