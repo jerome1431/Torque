@@ -97,6 +97,29 @@ header.top h1{
   font-weight:600;
 }
 
+.card-title{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:13.5px;
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+.data-row{
+  display:grid;
+  grid-template-columns: 104px 1fr;
+  align-items:center;
+  gap:10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.data-row label{
+  font-size:11.5px;
+  font-weight:600;
+  color: var(--ink-soft);
+  line-height:1.25;
+}
+.data-row .select-wrap{ min-width:0; }
+
 .toggle-row{
   display:flex;
   gap:8px;
@@ -212,6 +235,7 @@ select:focus, input:focus{
   letter-spacing:0.08em;
   color: #9FB3BE;
   margin-bottom:4px;
+  text-align:center;
 }
 .result-torque{
   font-family:'Space Grotesk',sans-serif;
@@ -220,6 +244,7 @@ select:focus, input:focus{
   line-height:1;
   margin: 2px 0 2px;
   letter-spacing:-0.01em;
+  text-align:center;
 }
 .result-torque span{ font-size:16px; font-weight:500; color:#B9C6CC; margin-left:4px;}
 .result-alt{
@@ -227,8 +252,27 @@ select:focus, input:focus{
   font-size:11.5px;
   color:#9FB3BE;
   margin-bottom:10px;
+  text-align:center;
 }
-.gauge-wrap{ display:flex; justify-content:center; margin: 4px 0 0; }
+.result-params{
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top:12px;
+  margin-top:12px;
+}
+.result-params .param-cell label{ color:#9FB3BE; }
+.result-params .param-default{ color:#9FB3BE; }
+.result-params .param-unit{ color:#9FB3BE; }
+.result-params input[type=number]{
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: #fff;
+}
+.result-params input[type=number]:focus{
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.14);
+}
+.result-params .reset-link{ color: var(--accent); }
+.result-params .filter-row{ justify-content:center; margin-top:8px; }
 .detail-grid{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -277,64 +321,34 @@ footer.foot{
     <button class="lang-btn" id="langBtn" title="FR / EN"></button>
   </header>
 
-  <!-- STEP 1 : APPLICATION -->
+  <!-- DONNÉES -->
   <div class="card">
-    <div class="step-head">
-      <div class="step-num">01</div>
-      <div class="step-title" id="tStep1Title">Type d'application</div>
+    <div class="card-title" id="tDataTitle">Données</div>
+
+    <div class="data-row">
+      <label id="tStep1Title">Type d'application</label>
+      <div class="select-wrap"><select id="appTypeSelect"></select></div>
     </div>
-    <div class="select-wrap"><select id="appTypeSelect"></select></div>
     <div id="imperialToggleWrap" style="display:none;">
       <div class="toggle-row" id="bracketUnitToggle">
         <button data-v="metric" class="active" id="tMetricToggleBtn">Métrique</button>
         <button data-v="imperial" id="tImperialToggleBtn">Impérial</button>
       </div>
     </div>
-  </div>
 
-  <!-- STEP 2 : BOLT SIZE -->
-  <div class="card">
-    <div class="step-head">
-      <div class="step-num">02</div>
-      <div class="step-title" id="tStep2Title">Taille de la vis</div>
+    <div class="data-row">
+      <label id="tStep2Title">Taille de la vis</label>
+      <div class="select-wrap"><select id="socketSelect"></select></div>
     </div>
-    <div class="select-wrap"><select id="socketSelect"></select></div>
     <div class="hint" id="boltHint"></div>
-  </div>
 
-  <!-- STEP 3 : MATERIAL -->
-  <div class="card">
-    <div class="step-head">
-      <div class="step-num">03</div>
-      <div class="step-title" id="tStep3Title">Matière</div>
+    <div class="data-row" style="border-bottom:none;">
+      <label id="tStep3Title">Matière</label>
+      <div class="select-wrap"><select id="materialSelect"></select></div>
     </div>
-    <div class="select-wrap"><select id="materialSelect"></select></div>
     <div class="hint" id="materialHint"></div>
     <div class="filter-row">
       <button class="reset-link" id="toggleAllMaterialsBtn"></button>
-    </div>
-  </div>
-
-  <!-- STEP 4 : PARAMETERS -->
-  <div class="card">
-    <div class="step-head">
-      <div class="step-num">04</div>
-      <div class="step-title" id="tStep4Title">Paramètres</div>
-    </div>
-    <div class="row2">
-      <div class="param-cell">
-        <label id="tFrictionLabel">µ</label>
-        <div class="param-input-row"><input type="number" id="frictionInput" step="0.01" min="0.01" max="1" value="0.15"></div>
-        <div class="param-default" id="tFrictionDefault">Défaut : 0,15</div>
-      </div>
-      <div class="param-cell">
-        <label id="tPreloadLabel">% Rp0,2</label>
-        <div class="param-input-row"><input type="number" id="preloadInput" step="1" min="1" max="100" value="70"><span class="param-unit">%</span></div>
-        <div class="param-default" id="preloadDefaultLabel">—</div>
-      </div>
-    </div>
-    <div class="filter-row">
-      <button class="reset-link" id="resetParamsBtn">↺ <span id="tResetParams">Réinitialiser</span></button>
     </div>
   </div>
 
@@ -345,14 +359,29 @@ footer.foot{
       <div class="result-eyebrow" id="resultContext">—</div>
       <div class="result-torque" id="torqueNm">0<span>N·m</span></div>
       <div class="result-alt" id="torqueAlt">0 lb·ft</div>
-      <div class="gauge-wrap" id="gaugeWrap"></div>
-      <div class="hint" id="gaugeCaption" style="text-align:center; color:#9FB3BE;"></div>
       <div class="detail-grid">
         <div><div class="d-label" id="tDYieldLabel">Rp0,2 utilisé</div><div class="d-val" id="dYield">—</div></div>
         <div><div class="d-label" id="tDAsLabel">Aire de contrainte As</div><div class="d-val" id="dAs">—</div></div>
         <div><div class="d-label" id="tDFvLabel">Précharge Fv</div><div class="d-val" id="dFv">—</div></div>
         <div><div class="d-label" id="tDPitchLabel">Pas / Ø primitif d2</div><div class="d-val" id="dPitch">—</div></div>
         <div style="grid-column:1/-1;"><div class="d-label" id="tDRawLabel">Valeur brute (avant arrondi /10)</div><div class="d-val" id="dRaw">—</div></div>
+      </div>
+      <div class="result-params">
+        <div class="row2">
+          <div class="param-cell">
+            <label id="tFrictionLabel">µ (coef. de frottement)</label>
+            <div class="param-input-row"><input type="number" id="frictionInput" step="0.01" min="0.01" max="1" value="0.15"></div>
+            <div class="param-default" id="tFrictionDefault">Défaut : 0,15</div>
+          </div>
+          <div class="param-cell">
+            <label id="tPreloadLabel">% Rp0,2</label>
+            <div class="param-input-row"><input type="number" id="preloadInput" step="1" min="1" max="100" value="70"><span class="param-unit">%</span></div>
+            <div class="param-default" id="preloadDefaultLabel">—</div>
+          </div>
+        </div>
+        <div class="filter-row">
+          <button class="reset-link" id="resetParamsBtn">↺ <span id="tResetParams">Réinitialiser</span></button>
+        </div>
       </div>
       <div class="warn" id="lowSizeWarn" style="display:none;"></div>
     </div>
@@ -372,6 +401,7 @@ const MATERIALS = [{"name": "ASTM A320 B8M Class 2", "min_size": 0.0, "max_size"
 const I18N = {
   fr: {
     title: 'Couple de serrage',
+    dataTitle: 'Données',
     step1Title: "Type d'application",
     step2Title: "Taille de la vis",
     metricToggle: 'Métrique',
@@ -403,6 +433,7 @@ const I18N = {
   },
   en: {
     title: 'Tightening torque',
+    dataTitle: 'Data',
     step1Title: 'Application type',
     step2Title: 'Bolt size',
     metricToggle: 'Metric',
@@ -509,12 +540,12 @@ function pickMaterialRow(materialName, d){
 /* ---------- static text application ---------- */
 function applyStaticText(){
   document.getElementById('tTitle').textContent = t('title');
+  document.getElementById('tDataTitle').textContent = t('dataTitle');
   document.getElementById('tStep1Title').textContent = t('step1Title');
   document.getElementById('tMetricToggleBtn').textContent = t('metricToggle');
   document.getElementById('tImperialToggleBtn').textContent = t('imperialToggle');
   document.getElementById('tStep2Title').textContent = t('step2Title');
   document.getElementById('tStep3Title').textContent = t('step3Title');
-  document.getElementById('tStep4Title').textContent = t('step4Title');
   document.getElementById('tFrictionLabel').textContent = t('frictionLabel');
   document.getElementById('tFrictionDefault').textContent = t('frictionDefault');
   document.getElementById('tPreloadLabel').textContent = t('preloadLabel');
@@ -662,45 +693,6 @@ document.getElementById('resetParamsBtn').addEventListener('click', ()=>{
   render();
 });
 
-/* ---------- gauge ---------- */
-function gaugeSVG(percentOfScale){
-  const clamped = Math.max(0, Math.min(1, percentOfScale));
-  const cx=90, cy=90, r=70;
-  const START = -120, END = 120;
-
-  function pt(angleDeg, radius){
-    const rad = (angleDeg - 90) * Math.PI/180;
-    return { x: cx + radius*Math.cos(rad), y: cy + radius*Math.sin(rad) };
-  }
-
-  const needleAngle = START + clamped*(END-START);
-  const trackR = r*0.92;
-  const p0 = pt(START, trackR);
-  const p1 = pt(END, trackR);
-  const pNeedleArc = pt(needleAngle, trackR);
-  const large = (needleAngle - START) > 180 ? 1 : 0;
-
-  let ticks = '';
-  for (let i=0;i<=8;i++){
-    const a = START + (i/8)*(END-START);
-    const t1 = pt(a, r*0.78);
-    const t2 = pt(a, r*0.88);
-    ticks += `<line x1="${t1.x.toFixed(1)}" y1="${t1.y.toFixed(1)}" x2="${t2.x.toFixed(1)}" y2="${t2.y.toFixed(1)}" stroke="#4A5D68" stroke-width="2"/>`;
-  }
-
-  const needleTip = pt(needleAngle, r*0.68);
-
-  return `<svg width="170" height="130" viewBox="0 0 180 150">
-    <path d="M ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} A ${trackR} ${trackR} 0 1 1 ${p1.x.toFixed(1)} ${p1.y.toFixed(1)}"
-      fill="none" stroke="#2A3940" stroke-width="10" stroke-linecap="round"/>
-    <path d="M ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} A ${trackR} ${trackR} 0 ${large} 1 ${pNeedleArc.x.toFixed(1)} ${pNeedleArc.y.toFixed(1)}"
-      fill="none" stroke="#D65A2E" stroke-width="10" stroke-linecap="round"/>
-    ${ticks}
-    <line x1="${cx}" y1="${cy}" x2="${needleTip.x.toFixed(1)}" y2="${needleTip.y.toFixed(1)}" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="${cx}" cy="${cy}" r="6" fill="#fff"/>
-  </svg>`;
-}
-
 /* ---------- toggle sync ---------- */
 function syncToggles(){
   document.querySelectorAll('#bracketUnitToggle button').forEach(b=>{
@@ -779,14 +771,6 @@ function render(){
   document.getElementById('dFv').textContent = fmt(Fv/1000,2) + ' kN';
   document.getElementById('dPitch').textContent = (typeof pitch==='number'?fmt(pitch,2)+' mm':pitch) + ' / ' + fmt(bolt.d2,2)+' mm';
   document.getElementById('dRaw').textContent = fmt(T_Nm_raw,2) + ' N·m' + factorNote;
-
-  const Fv_max = 1.0 * matRow.yield * As;
-  const T_Nmm_max = factor * (0.16*pitchVal + 0.583*mu*bolt.da + 0.5*mu*bolt.d2) * Fv_max;
-  const T_Nm_max = T_Nmm_max / 1000;
-  const gaugePct = T_Nm_max > 0 ? Math.min(1, T_Nm_raw / T_Nm_max) : 0;
-  document.getElementById('gaugeWrap').innerHTML = gaugeSVG(gaugePct);
-  document.getElementById('gaugeCaption').textContent =
-    t('gaugeCaption')(fmt(gaugePct*100,0), fmt(T_Nm_max,0), fmt(mu,2));
 
   const warnEl = document.getElementById('lowSizeWarn');
   if (mu <= 0 || preloadPct <= 0){
