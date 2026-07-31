@@ -413,7 +413,7 @@ const I18N = {
     preloadLabel: '% Rp0,2',
     resetParams: 'Réinitialiser',
     resultPlaceholder: 'Sélectionnez une application, une vis et une matière pour obtenir le couple.',
-    footerFormula: 'T = 0,9 · (0,16·p + 0,583·µ·da + 0,5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0,2 · As',
+    footerFormula: (f)=>`T = ${f} · (0,16·p + 0,583·µ·da + 0,5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0,2 · As`,
     footerNote: 'Outil interne — vérifier toute valeur critique avant application.',
     warnText: 'Vérifiez µ et le % de précharge : une valeur nulle ou négative fausse le calcul.',
     dYieldLabel: 'Rp0,2 utilisé',
@@ -445,7 +445,7 @@ const I18N = {
     preloadLabel: '% Rp0.2',
     resetParams: 'Reset',
     resultPlaceholder: 'Select an application, a bolt and a material to get the torque.',
-    footerFormula: 'T = 0.9 · (0.16·p + 0.583·µ·da + 0.5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0.2 · As',
+    footerFormula: (f)=>`T = ${f} · (0.16·p + 0.583·µ·da + 0.5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0.2 · As`,
     footerNote: 'Internal tool — verify any critical value before applying it.',
     warnText: 'Check µ and the preload %: a zero or negative value invalidates the calculation.',
     dYieldLabel: 'Rp0.2 used',
@@ -494,6 +494,11 @@ let state = {
 
 function t(key){ return I18N[state.lang][key]; }
 function appLabel(app){ return state.lang==='fr' ? app.label_fr : app.label_en; }
+
+function formatFactor(f){
+  const s = String(f);
+  return state.lang==='fr' ? s.replace('.', ',') : s;
+}
 
 function fmt(n, d=1){
   if (n === null || n === undefined || isNaN(n)) return '—';
@@ -551,7 +556,7 @@ function applyStaticText(){
   document.getElementById('tPreloadLabel').textContent = t('preloadLabel');
   document.getElementById('tResetParams').textContent = t('resetParams');
   document.getElementById('resultEmpty').textContent = t('resultPlaceholder');
-  document.getElementById('tFooterFormula').innerHTML = t('footerFormula');
+  document.getElementById('tFooterFormula').innerHTML = t('footerFormula')(formatFactor(0.9));
   document.getElementById('tFooterNote').textContent = t('footerNote');
   document.getElementById('tDYieldLabel').textContent = t('dYieldLabel');
   document.getElementById('tDAsLabel').textContent = t('dAsLabel');
@@ -740,13 +745,18 @@ function render(){
   const preloadPct = state.preload / 100;
 
   const Fv = preloadPct * matRow.yield * As; // Newtons
-  const pitchVal = typeof pitch === 'number' ? pitch : parseFloat(String(pitch).replace(',','.')) || 0;
+  const pitchVal = typeof pitch === 'number'
+    ? pitch
+    : (()=>{ const tpi = parseFloat(String(pitch).replace(',','.')) || 0; return tpi > 0 ? 25.4/tpi : 0; })();
 
   // Facteur de la formule :
   // - petits métriques (≤ M10 inclus) en vis de siège ou vis de bracket métrique → facteur retiré (=1)
+  // - 5/16" et 3/8" impérial → facteur retiré (=1)
   // - body/bonnet en métrique M16 à M30 inclus → facteur = 0,8 au lieu de 0,9
   // - sinon → 0,9
-  const dropFactor = (app.id === 'seat' || app.id === 'bracket') && bolt.unit === 'Metric' && bolt.d <= 10;
+  const dropFactorMetric = (app.id === 'seat' || app.id === 'bracket') && bolt.unit === 'Metric' && bolt.d <= 10;
+  const dropFactorImperial = bolt.unit === 'Imperial' && (bolt.metric === '5/16"' || bolt.metric === '3/8"');
+  const dropFactor = dropFactorMetric || dropFactorImperial;
   const bodyBonnetReduced = app.id === 'body_bonnet' && bolt.unit === 'Metric' && bolt.d >= 16 && bolt.d <= 30;
   let factor = 0.9;
   let factorNote = '';
@@ -771,6 +781,7 @@ function render(){
   document.getElementById('dFv').textContent = fmt(Fv/1000,2) + ' kN';
   document.getElementById('dPitch').textContent = (typeof pitch==='number'?fmt(pitch,2)+' mm':pitch) + ' / ' + fmt(bolt.d2,2)+' mm';
   document.getElementById('dRaw').textContent = fmt(T_Nm_raw,2) + ' N·m' + factorNote;
+  document.getElementById('tFooterFormula').innerHTML = t('footerFormula')(formatFactor(factor));
 
   const warnEl = document.getElementById('lowSizeWarn');
   if (mu <= 0 || preloadPct <= 0){
