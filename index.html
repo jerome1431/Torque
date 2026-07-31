@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Couple de serrage — Boulonnerie</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg: #EEF1F3;
+  --paper: #FFFFFF;
+  --ink: #16232C;
+  --ink-soft: #55636B;
+  --line: #CBD3D8;
+  --steel: #2F5872;
+  --steel-soft: #E4EBEE;
+  --accent: #D65A2E;
+  --accent-soft: #FBE6DB;
+  --good: #2C7A54;
+  --radius: 10px;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background: var(--bg);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+  font-family:'IBM Plex Sans', sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+.wrap{
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+}
+header.top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  padding: 6px 2px 18px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 20px;
+  gap: 10px;
+}
+header.top h1{
+  font-family:'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight:700;
+  letter-spacing: -0.01em;
+  margin:0;
+  line-height:1.15;
+}
+header.top .sub{
+  font-family:'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.lang-btn{
+  border:1.5px solid var(--line);
+  background:#FBFCFC;
+  border-radius:8px;
+  height:34px;
+  padding:0 10px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  font-weight:600;
+  color: var(--ink-soft);
+  cursor:pointer;
+  letter-spacing:0.03em;
+  flex-shrink:0;
+}
+.lang-btn .cur{ color: var(--accent); }
+
+.card{
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 0 rgba(22,35,44,0.03);
+}
+.step-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 14px;
+}
+.step-num{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  font-weight:600;
+  color: var(--steel);
+  border: 1.5px solid var(--steel);
+  border-radius: 50%;
+  width:24px;height:24px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.step-title{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:15px;
+  font-weight:600;
+}
+.step-title small{
+  display:block;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:11.5px;
+  font-weight:400;
+  color: var(--ink-soft);
+  margin-top:1px;
+}
+
+.chip-grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:8px;
+}
+.chip{
+  border:1.5px solid var(--line);
+  background: #FBFCFC;
+  border-radius:8px;
+  padding:10px 10px;
+  font-size:12.5px;
+  font-weight:500;
+  text-align:left;
+  cursor:pointer;
+  line-height:1.3;
+  color: var(--ink);
+  transition: border-color .12s, background .12s;
+}
+.chip.wide{ grid-column: 1 / -1; }
+.chip:active{ transform: translateY(1px); }
+.chip.selected{
+  border-color: var(--steel);
+  background: var(--steel-soft);
+  color: var(--steel);
+  font-weight:600;
+}
+.chip .tag{
+  display:block;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  color: var(--ink-soft);
+  font-weight:400;
+  margin-top:2px;
+}
+.chip.selected .tag{ color: var(--steel); opacity:0.75; }
+
+.toggle-row{
+  display:flex;
+  gap:8px;
+  margin-bottom:12px;
+}
+.toggle-row button{
+  flex:1;
+  border:1.5px solid var(--line);
+  border-radius:8px;
+  background: #FBFCFC;
+  padding:9px 6px;
+  font-family:'IBM Plex Sans',sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+  color: var(--ink-soft);
+  cursor:pointer;
+  transition: border-color .12s, background .12s, color .12s;
+}
+.toggle-row button.active{
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight:600;
+}
+
+label.field{
+  display:block;
+  font-size:11.5px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  color: var(--ink-soft);
+  margin: 4px 0 6px;
+}
+select, input[type=number]{
+  width:100%;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:15px;
+  font-weight:500;
+  padding:11px 10px;
+  border-radius:8px;
+  border:1.5px solid var(--line);
+  background: #FBFCFC;
+  color: var(--ink);
+  appearance:none;
+  -webkit-appearance:none;
+}
+select:focus, input:focus{
+  outline:none;
+  border-color: var(--steel);
+  background:#fff;
+}
+.select-wrap{ position:relative; }
+.select-wrap::after{
+  content:"▾";
+  position:absolute;
+  right:12px; top:50%;
+  transform: translateY(-50%);
+  color: var(--ink-soft);
+  font-size:12px;
+  pointer-events:none;
+}
+
+.hint{
+  font-size:11.5px;
+  color: var(--ink-soft);
+  margin-top:6px;
+  line-height:1.4;
+}
+.hint b{ color: var(--ink); }
+
+.filter-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:8px;
+}
+.reset-link{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color: var(--steel);
+  text-decoration: underline;
+  cursor:pointer;
+  background:none;border:none;padding:0;
+}
+
+.param-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+.param-row:last-child{ border-bottom:none; }
+.param-label{ font-size:13px; font-weight:500; }
+.param-label small{ display:block; color:var(--ink-soft); font-size:11px; font-weight:400; margin-top:1px;}
+.param-input{ display:flex; align-items:center; gap:6px; }
+.param-input input{
+  width:72px;
+  text-align:right;
+  padding:8px 8px;
+  font-size:14px;
+}
+.param-unit{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); width:20px; }
+
+/* Result card */
+.result-card{
+  background: var(--ink);
+  color:#fff;
+  border-radius: var(--radius);
+  padding: 22px 18px 18px;
+  margin-top: 6px;
+  position:relative;
+  overflow:hidden;
+}
+.result-card::before{
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(circle at 85% -10%, rgba(214,90,46,0.25), transparent 60%);
+  pointer-events:none;
+}
+.result-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color: #9FB3BE;
+  margin-bottom:6px;
+}
+.result-torque{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:44px;
+  font-weight:700;
+  line-height:1;
+  margin: 2px 0 2px;
+  letter-spacing:-0.01em;
+}
+.result-torque span{ font-size:18px; font-weight:500; color:#B9C6CC; margin-left:4px;}
+.result-alt{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  color:#9FB3BE;
+  margin-bottom:14px;
+}
+.gauge-wrap{ display:flex; justify-content:center; margin: 6px 0 2px; }
+.detail-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top:14px;
+  margin-top:12px;
+}
+.detail-grid .d-label{ color:#9FB3BE; font-size:10.5px; text-transform:uppercase; letter-spacing:0.04em;}
+.detail-grid .d-val{ font-weight:600; }
+.warn{
+  margin-top:14px;
+  background: rgba(214,90,46,0.18);
+  border:1px solid rgba(214,90,46,0.4);
+  border-radius:8px;
+  padding:9px 11px;
+  font-size:11.5px;
+  color:#FBD9C8;
+  line-height:1.4;
+}
+.empty-result{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12.5px;
+  color:#9FB3BE;
+  text-align:center;
+  padding: 10px 0 2px;
+}
+
+footer.foot{
+  text-align:center;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:10.5px;
+  color: var(--ink-soft);
+  margin-top: 22px;
+  line-height:1.6;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1 id="tTitle">Couple de<br>serrage</h1>
+      <div class="sub" id="tHeaderSub">HVB · Boulonnerie</div>
+    </div>
+    <button class="lang-btn" id="langBtn" title="FR / EN"></button>
+  </header>
+
+  <!-- STEP 1 : APPLICATION -->
+  <div class="card">
+    <div class="step-head">
+      <div class="step-num">01</div>
+      <div class="step-title" id="tStep1Title">Type d'application<small id="tStep1Sub">Détermine la norme de tête et le % de yield par défaut</small></div>
+    </div>
+    <div class="chip-grid" id="appTypeGrid"></div>
+    <div id="imperialToggleWrap" style="display:none; margin-top:10px;">
+      <div class="toggle-row" id="bracketUnitToggle">
+        <button data-v="metric" class="active" id="tMetricToggleBtn">Métrique (DIN 933)</button>
+        <button data-v="imperial" id="tImperialToggleBtn">Impérial (ASME)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 : BOLT SIZE -->
+  <div class="card">
+    <div class="step-head">
+      <div class="step-num">02</div>
+      <div class="step-title" id="tStep2Title">Taille de la vis<small id="standardLabel">—</small></div>
+    </div>
+    <div class="toggle-row" id="sizeModeToggle">
+      <button data-v="thread" class="active" id="tByThreadBtn">Par diamètre</button>
+      <button data-v="socket" id="tBySocketBtn">Par douille / clé</button>
+    </div>
+    <div id="threadFieldWrap">
+      <label class="field" id="tFieldDiameter">Diamètre</label>
+      <div class="select-wrap"><select id="threadSelect"></select></div>
+    </div>
+    <div id="socketFieldWrap" style="display:none;">
+      <label class="field" id="tFieldSocket">Taille de douille / clé Allen</label>
+      <div class="select-wrap"><select id="socketSelect"></select></div>
+    </div>
+    <div class="hint" id="boltHint"></div>
+  </div>
+
+  <!-- STEP 3 : MATERIAL -->
+  <div class="card">
+    <div class="step-head">
+      <div class="step-num">03</div>
+      <div class="step-title" id="tStep3Title">Matière<small id="tStep3Sub">Utilisée pour Rp0,2 selon la plage de diamètre</small></div>
+    </div>
+    <label class="field" id="tFieldGrade">Nuance</label>
+    <div class="select-wrap"><select id="materialSelect"></select></div>
+    <div class="hint" id="materialHint"></div>
+    <div class="filter-row">
+      <button class="reset-link" id="toggleAllMaterialsBtn"></button>
+    </div>
+  </div>
+
+  <!-- STEP 4 : PARAMETERS -->
+  <div class="card">
+    <div class="step-head">
+      <div class="step-num">04</div>
+      <div class="step-title" id="tStep4Title">Paramètres<small id="tStep4Sub">Valeurs par défaut modifiables</small></div>
+    </div>
+    <div class="param-row">
+      <div class="param-label" id="tFrictionLabel">Coefficient de friction µ<small id="tFrictionDefault">Défaut : 0,15</small></div>
+      <div class="param-input"><input type="number" id="frictionInput" step="0.01" min="0.01" max="1" value="0.15"></div>
+    </div>
+    <div class="param-row">
+      <div class="param-label" id="tPreloadLabel">Précontrainte (% de Rp0,2)<small id="preloadDefaultLabel">Défaut selon l'application</small></div>
+      <div class="param-input"><input type="number" id="preloadInput" step="1" min="1" max="100" value="70"><span class="param-unit">%</span></div>
+    </div>
+    <button class="reset-link" id="resetParamsBtn" style="margin-top:8px;">↺ <span id="tResetParams">Réinitialiser les valeurs par défaut</span></button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card">
+    <div id="resultEmpty" class="empty-result">Sélectionnez une application, une vis et une matière pour obtenir le couple.</div>
+    <div id="resultContent" style="display:none;">
+      <div class="result-eyebrow" id="resultContext">—</div>
+      <div class="result-torque" id="torqueNm">0<span>N·m</span></div>
+      <div class="result-alt" id="torqueAlt">0 lb·ft</div>
+      <div class="gauge-wrap" id="gaugeWrap"></div>
+      <div class="hint" id="gaugeCaption" style="text-align:center; color:#9FB3BE;"></div>
+      <div class="detail-grid">
+        <div><div class="d-label" id="tDYieldLabel">Rp0,2 utilisé</div><div class="d-val" id="dYield">—</div></div>
+        <div><div class="d-label" id="tDAsLabel">Aire de contrainte As</div><div class="d-val" id="dAs">—</div></div>
+        <div><div class="d-label" id="tDFvLabel">Précharge Fv</div><div class="d-val" id="dFv">—</div></div>
+        <div><div class="d-label" id="tDPitchLabel">Pas / Ø primitif d2</div><div class="d-val" id="dPitch">—</div></div>
+        <div style="grid-column:1/-1;"><div class="d-label" id="tDRawLabel">Valeur brute (avant arrondi /10)</div><div class="d-val" id="dRaw">—</div></div>
+      </div>
+      <div class="warn" id="lowSizeWarn" style="display:none;"></div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span id="tFooterFormula">T = 0,9 · (0,16·p + 0,583·µ·da + 0,5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0,2 · As</span><br>
+    <span id="tFooterNote">Outil interne — vérifier toute valeur critique avant application.</span>
+  </footer>
+</div>
+
+<script>
+const BOLTING = [{"thread": "M6 x 1", "metric": "M6", "pitch": 1.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 6.0, "d2": 5.35048095, "da": 10.0, "key_size": 10, "as_metric": 20.1233297739974, "as_imperial": null}, {"thread": "M8 x 1,25", "metric": "M8", "pitch": 1.25, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 8.0, "d2": 7.1881011875, "da": 13.0, "key_size": 13, "as_metric": 36.60846284207682, "as_imperial": null}, {"thread": "M10 x 1,5", "metric": "M10", "pitch": 1.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 10.0, "d2": 9.025721425, "da": 17.0, "key_size": 17, "as_metric": 57.98947542534723, "as_imperial": null}, {"thread": "M12 x 1,75", "metric": "M12", "pitch": 1.75, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 12.0, "d2": 10.8633416625, "da": 19.0, "key_size": 19, "as_metric": 84.26636752380863, "as_imperial": null}, {"thread": "M14 x 2", "metric": "M14", "pitch": 2.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 14.0, "d2": 12.7009619, "da": 22.0, "key_size": 22, "as_metric": 115.43913913746103, "as_imperial": null}, {"thread": "M16 x 2", "metric": "M16", "pitch": 2.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 16.0, "d2": 14.7009619, "da": 24.0, "key_size": 24, "as_metric": 156.66814448611206, "as_imperial": null}, {"thread": "M18 x 2,5", "metric": "M18", "pitch": 2.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 18.0, "d2": 16.376202375, "da": 27.0, "key_size": 27, "as_metric": 192.47232091033888, "as_imperial": null}, {"thread": "M20 x 2,5", "metric": "M20", "pitch": 2.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 20.0, "d2": 18.376202375, "da": 30.0, "key_size": 30, "as_metric": 244.79397575955002, "as_imperial": null}, {"thread": "M22 x 2,5", "metric": "M22", "pitch": 2.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 22.0, "d2": 20.376202375, "da": 32.0, "key_size": 32, "as_metric": 303.3988159159408, "as_imperial": null}, {"thread": "M24 x 3", "metric": "M24", "pitch": 3.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 24.0, "d2": 22.05144285, "da": 36.0, "key_size": 36, "as_metric": 352.50332509375215, "as_imperial": null}, {"thread": "M27 x 3", "metric": "M27", "pitch": 3.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 27.0, "d2": 25.05144285, "da": 41.0, "key_size": 41, "as_metric": 459.40575406937097, "as_imperial": null}, {"thread": "M30 x 3,5", "metric": "M30", "pitch": 3.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 30.0, "d2": 27.726683325, "da": 46.0, "key_size": 46, "as_metric": 560.5863316462294, "as_imperial": null}, {"thread": "M33 x 3,5", "metric": "M33", "pitch": 3.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 33.0, "d2": 30.726683325, "da": 50.0, "key_size": 50, "as_metric": 693.5525128334579, "as_imperial": null}, {"thread": "M36 x 4", "metric": "M36", "pitch": 4.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 36.0, "d2": 33.4019238, "da": 55.0, "key_size": 55, "as_metric": 816.7213405677705, "as_imperial": null}, {"thread": "M39 x 4", "metric": "M39", "pitch": 4.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 39.0, "d2": 36.4019238, "da": 60.0, "key_size": 60, "as_metric": 975.7512739666088, "as_imperial": null}, {"thread": "M42 x 4,5", "metric": "M42", "pitch": 4.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 42.0, "d2": 39.077164275, "da": 65.0, "key_size": 65, "as_metric": 1120.908351858376, "as_imperial": null}, {"thread": "M45 x 4,5", "metric": "M45", "pitch": 4.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 45.0, "d2": 42.077164275, "da": 70.0, "key_size": 70, "as_metric": 1306.0020374688238, "as_imperial": null}, {"thread": "M48 x 5", "metric": "M48", "pitch": 5.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 48.0, "d2": 44.75240475, "da": 75.0, "key_size": 75, "as_metric": 1473.1473655180448, "as_imperial": null}, {"thread": "M52 x 5", "metric": "M52", "pitch": 5.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 52.0, "d2": 48.75240475, "da": 80.0, "key_size": 80, "as_metric": 1757.8322086010446, "as_imperial": null}, {"thread": "M56 x 5,5", "metric": "M56", "pitch": 5.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 56.0, "d2": 52.427645225, "da": 85.0, "key_size": 85, "as_metric": 2030.015045242428, "as_imperial": null}, {"thread": "M60 x 5,5", "metric": "M60", "pitch": 5.5, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 60.0, "d2": 56.427645225, "da": 90.0, "key_size": 90, "as_metric": 2362.0179285552667, "as_imperial": null}, {"thread": "M64 x 6", "metric": "M64", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 64.0, "d2": 60.1028857, "da": 95.0, "key_size": 95, "as_metric": 2675.9695822585345, "as_imperial": null}, {"thread": "M68 x 6", "metric": "M68", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 68.0, "d2": 64.1028857, "da": 100.0, "key_size": 100, "as_metric": 3055.290505801212, "as_imperial": null}, {"thread": "M72 x 6", "metric": "M72", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 72.0, "d2": 68.1028857, "da": 105.0, "key_size": 105, "as_metric": 3459.744170572608, "as_imperial": null}, {"thread": "M76 x 6", "metric": "M76", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 76.0, "d2": 72.1028857, "da": 110.0, "key_size": 110, "as_metric": 3889.330576572722, "as_imperial": null}, {"thread": "M80 x 6", "metric": "M80", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 80.0, "d2": 76.1028857, "da": 115.0, "key_size": 115, "as_metric": 4344.049723801554, "as_imperial": null}, {"thread": "M85 x 6", "metric": "M85", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 85.0, "d2": 81.1028857, "da": 120.0, "key_size": 120, "as_metric": 4947.79157519048, "as_imperial": null}, {"thread": "M90 x 4", "metric": "M90", "pitch": 4.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 90.0, "d2": 87.4019238, "da": 130.0, "key_size": 130, "as_metric": 5842.246683743432, "as_imperial": null}, {"thread": "M95 x 4", "metric": "M95", "pitch": 4.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 95.0, "d2": 92.4019238, "da": 135.0, "key_size": 135, "as_metric": 6539.265562610091, "as_imperial": null}, {"thread": "M100 x 6", "metric": "M100", "pitch": 6.0, "standard": "DIN 933 / ISO 4017", "unit": "Metric", "d": 100.0, "d2": 96.1028857, "da": 145.0, "key_size": 145, "as_metric": 6994.636578376491, "as_imperial": null}, {"thread": "5/16\" x 18 UNC", "metric": "5/16\"", "pitch": "18 UNC", "standard": "ASME B18.2.1 Hex Bolts / ASME B1.1", "unit": "Imperial", "d": 7.9375, "d2": 7.020956451666667, "da": 12.7, "key_size": "1/2\"", "as_metric": null, "as_imperial": 33.82618019287053}, {"thread": "3/8\" x 16 UNC", "metric": "3/8\"", "pitch": "16 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 9.524999999999999, "d2": 8.493888508124998, "da": 17.4625, "key_size": "9/16\"", "as_metric": null, "as_imperial": 49.99357273661382}, {"thread": "1/2\" x 13 UNC", "metric": "1/2\"", "pitch": "13 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 12.7, "d2": 11.430939702307692, "da": 22.224999999999998, "key_size": "3/4\"", "as_metric": null, "as_imperial": 91.54794157863364}, {"thread": "5/8\" x 11 UNC", "metric": "5/8\"", "pitch": "11 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 15.875, "d2": 14.375201466363636, "da": 26.987499999999997, "key_size": "15/16\"", "as_metric": null, "as_imperial": 145.80827395066046}, {"thread": "3/4\" x 10 UNC", "metric": "3/4\"", "pitch": "10 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 19.049999999999997, "d2": 17.400221612999996, "da": 31.75, "key_size": "1\"1/8", "as_metric": null, "as_imperial": 215.78158357867218}, {"thread": "7/8\" x 9 UNC", "metric": "7/8\"", "pitch": "9 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 22.224999999999998, "d2": 20.39191290333333, "da": 36.512499999999996, "key_size": "1\"5/16", "as_metric": null, "as_imperial": 297.89367886952067}, {"thread": "1\" x 8 UNC", "metric": "1\"", "pitch": "8 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 25.4, "d2": 23.337777016249998, "da": 41.275, "key_size": "1\"1/2", "as_metric": null, "as_imperial": 390.80417316764715}, {"thread": "1\"1/8 x 7 UNC", "metric": "1\"1/8", "pitch": "7 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 28.575, "d2": 26.218173732857142, "da": 46.037499999999994, "key_size": "1\"11/16", "as_metric": null, "as_imperial": 492.4364895598199}, {"thread": "1\"1/4 x 7 UNC", "metric": "1\"1/4", "pitch": "7 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 31.75, "d2": 29.393173732857143, "da": 50.8, "key_size": "1\"7/8", "as_metric": null, "as_imperial": 625.2340496260533}, {"thread": "1\"3/8 x 6 UNC", "metric": "1\"3/8", "pitch": "6 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 34.925, "d2": 32.175369355, "da": 55.5625, "key_size": "2\"1/16", "as_metric": null, "as_imperial": 745.0869193747582}, {"thread": "1\"1/2 x 6 UNC", "metric": "1\"1/2", "pitch": "6 UNC", "standard": "ASME B18.2.1 Heavy Hex Bolt / ASME B1.1", "unit": "Imperial", "d": 38.099999999999994, "d2": 35.350369355, "da": 60.324999999999996, "key_size": "2\"1/4", "as_metric": null, "as_imperial": 906.615159752779}, {"thread": "M4 x 0,7", "metric": "M4", "pitch": 0.7, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 4.0, "d2": 3.545336665, "da": 7.0, "key_size": 3, "as_metric": 8.778699557218768, "as_imperial": null}, {"thread": "M5 x 0,8", "metric": "M5", "pitch": 0.8, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 5.0, "d2": 4.48038476, "da": 8.5, "key_size": 4, "as_metric": 14.182516077409502, "as_imperial": null}, {"thread": "M6 x 1", "metric": "M6", "pitch": 1.0, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 6.0, "d2": 5.35048095, "da": 10.0, "key_size": 5, "as_metric": 20.1233297739974, "as_imperial": null}, {"thread": "M8 x 1,25", "metric": "M8", "pitch": 1.25, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 8.0, "d2": 7.1881011875, "da": 13.0, "key_size": 6, "as_metric": 36.60846284207682, "as_imperial": null}, {"thread": "M10 x 1,5", "metric": "M10", "pitch": 1.5, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 10.0, "d2": 9.025721425, "da": 16.0, "key_size": 8, "as_metric": 57.98947542534723, "as_imperial": null}, {"thread": "M12 x 1,75", "metric": "M12", "pitch": 1.75, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 12.0, "d2": 10.8633416625, "da": 18.0, "key_size": 10, "as_metric": 84.26636752380863, "as_imperial": null}, {"thread": "M16 x 2", "metric": "M16", "pitch": 2.0, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 16.0, "d2": 14.7009619, "da": 24.0, "key_size": 14, "as_metric": 156.66814448611206, "as_imperial": null}, {"thread": "M20 x 2,5", "metric": "M20", "pitch": 2.5, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 20.0, "d2": 18.376202375, "da": 30.0, "key_size": 17, "as_metric": 244.79397575955002, "as_imperial": null}, {"thread": "M24 x 3", "metric": "M24", "pitch": 3.0, "standard": "DIN 912 / ISO 4762", "unit": "Metric", "d": 24.0, "d2": 22.05144285, "da": 36.0, "key_size": 19, "as_metric": 352.50332509375215, "as_imperial": null}];
+
+const MATERIALS = [{"name": "ASTM A320 B8M Class 2", "min_size": 0.0, "max_size": 20.0, "family": "Austenitic Steels", "tensile": 760.0, "yield": 655.0}, {"name": "ASTM A320 B8M Class 2", "min_size": 20.0, "max_size": 25.0, "family": "Austenitic Steels", "tensile": 690.0, "yield": 550.0}, {"name": "ASTM A320 B8M Class 2", "min_size": 25.0, "max_size": 32.0, "family": "Austenitic Steels", "tensile": 655.0, "yield": 450.0}, {"name": "ASTM A320 B8M Class 2", "min_size": 32.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 620.0, "yield": 345.0}, {"name": "ASTM A320 B8 Class 2", "min_size": 0.0, "max_size": 20.0, "family": "Austenitic Steels", "tensile": 860.0, "yield": 690.0}, {"name": "ASTM A320 B8 Class 2", "min_size": 20.0, "max_size": 25.0, "family": "Austenitic Steels", "tensile": 795.0, "yield": 550.0}, {"name": "ASTM A320 B8 Class 2", "min_size": 25.0, "max_size": 32.0, "family": "Austenitic Steels", "tensile": 725.0, "yield": 450.0}, {"name": "ASTM A320 B8 Class 2", "min_size": 32.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 690.0, "yield": 345.0}, {"name": "ASTM A320 L7", "min_size": 0.0, "max_size": 65.0, "family": "Ferritic Steels", "tensile": 860.0, "yield": 725.0}, {"name": "ASTM A320 L7M", "min_size": 0.0, "max_size": 65.0, "family": "Ferritic Steels", "tensile": 690.0, "yield": 550.0}, {"name": "ASTM A193 B16", "min_size": 0.0, "max_size": 64.0, "family": "Ferritic Steels", "tensile": 860.0, "yield": 725.0}, {"name": "ASTM A193 B16", "min_size": 64.0, "max_size": 100.0, "family": "Ferritic Steels", "tensile": 760.0, "yield": 655.0}, {"name": "ASTM A193 B16", "min_size": 100.0, "max_size": 180.0, "family": "Ferritic Steels", "tensile": 690.0, "yield": 585.0}, {"name": "ASTM A193 B7", "min_size": 0.0, "max_size": 64.0, "family": "Ferritic Steels", "tensile": 860.0, "yield": 720.0}, {"name": "ASTM A193 B7", "min_size": 64.0, "max_size": 100.0, "family": "Ferritic Steels", "tensile": 795.0, "yield": 655.0}, {"name": "ASTM A193 B7", "min_size": 100.0, "max_size": 180.0, "family": "Ferritic Steels", "tensile": 690.0, "yield": 515.0}, {"name": "ASTM A193 B7M", "min_size": 0.0, "max_size": 100.0, "family": "Ferritic Steels", "tensile": 690.0, "yield": 550.0}, {"name": "ASTM A193 B7M", "min_size": 100.0, "max_size": 180.0, "family": "Ferritic Steels", "tensile": 690.0, "yield": 515.0}, {"name": "ASTM A193 B8 Class 2", "min_size": 0.0, "max_size": 20.0, "family": "Austenitic Steels", "tensile": 860.0, "yield": 690.0}, {"name": "ASTM A193 B8 Class 2", "min_size": 20.0, "max_size": 24.0, "family": "Austenitic Steels", "tensile": 795.0, "yield": 550.0}, {"name": "ASTM A193 B8 Class 2", "min_size": 24.0, "max_size": 30.0, "family": "Austenitic Steels", "tensile": 725.0, "yield": 450.0}, {"name": "ASTM A193 B8 Class 2", "min_size": 30.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 690.0, "yield": 345.0}, {"name": "ASTM A193 B8C Class 2", "min_size": 0.0, "max_size": 20.0, "family": "Austenitic Steels", "tensile": 860.0, "yield": 690.0}, {"name": "ASTM A193 B8C Class 2", "min_size": 20.0, "max_size": 24.0, "family": "Austenitic Steels", "tensile": 795.0, "yield": 550.0}, {"name": "ASTM A193 B8C Class 2", "min_size": 24.0, "max_size": 30.0, "family": "Austenitic Steels", "tensile": 725.0, "yield": 450.0}, {"name": "ASTM A193 B8C Class 2", "min_size": 30.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 690.0, "yield": 345.0}, {"name": "ASTM A193 B8M Class 2", "min_size": 0.0, "max_size": 20.0, "family": "Austenitic Steels", "tensile": 760.0, "yield": 655.0}, {"name": "ASTM A193 B8M Class 2", "min_size": 20.0, "max_size": 24.0, "family": "Austenitic Steels", "tensile": 690.0, "yield": 550.0}, {"name": "ASTM A193 B8M Class 2", "min_size": 24.0, "max_size": 30.0, "family": "Austenitic Steels", "tensile": 655.0, "yield": 450.0}, {"name": "ASTM A193 B8M Class 2", "min_size": 30.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 620.0, "yield": 345.0}, {"name": "ISO 3.6", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 300.0, "yield": 180.0}, {"name": "ISO 4.6", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 400.0, "yield": 240.0}, {"name": "ISO 4.8", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 400.0, "yield": 320.0}, {"name": "ISO 5.6", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 500.0, "yield": 300.0}, {"name": "ISO 5.8", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 500.0, "yield": 400.0}, {"name": "ISO 6.8", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 600.0, "yield": 480.0}, {"name": "ISO 8.8", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 800.0, "yield": 640.0}, {"name": "ISO 9.8", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 900.0, "yield": 720.0}, {"name": "ISO 10.9", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 1000.0, "yield": 900.0}, {"name": "ISO 12.9", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 1200.0, "yield": 1080.0}, {"name": "ISO 14.9", "min_size": 0.0, "max_size": 1000.0, "family": null, "tensile": 1400.0, "yield": 1260.0}, {"name": "ISO 3506-1 A2-50", "min_size": 0.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 500.0, "yield": 210.0}, {"name": "ISO 3506-1 A2-70", "min_size": 0.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 700.0, "yield": 450.0}, {"name": "ISO 3506-1 A2-80", "min_size": 0.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 800.0, "yield": 600.0}, {"name": "ISO 3506-1 A4-50", "min_size": 0.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 500.0, "yield": 210.0}, {"name": "ISO 3506-1 A4-70", "min_size": 0.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 700.0, "yield": 450.0}, {"name": "ISO 3506-1 A4-80", "min_size": 0.0, "max_size": 1000.0, "family": "Austenitic Steels", "tensile": 800.0, "yield": 600.0}, {"name": "AISI 316", "min_size": 0.0, "max_size": 5000.0, "family": null, "tensile": 515.0, "yield": 205.0}];
+
+const I18N = {
+  fr: {
+    title: 'Couple de<br>serrage',
+    headerSub: 'HVB · Boulonnerie',
+    step1Title: "Type d'application",
+    step1Sub: "Détermine la norme de tête et le % de yield par défaut",
+    step2Title: "Taille de la vis",
+    step2SubDefault: "Sélectionnez d'abord une application",
+    byThread: 'Par diamètre',
+    bySocket: 'Par douille / clé',
+    fieldDiameter: 'Diamètre',
+    fieldSocket: 'Taille de douille / clé Allen',
+    metricToggle: 'Métrique (DIN 933)',
+    imperialToggle: 'Impérial (ASME)',
+    step3Title: 'Matière',
+    step3Sub: 'Utilisée pour Rp0,2 selon la plage de diamètre',
+    fieldGrade: 'Nuance',
+    step4Title: 'Paramètres',
+    step4Sub: 'Valeurs par défaut modifiables',
+    frictionLabel: 'Coefficient de friction µ',
+    frictionDefault: 'Défaut : 0,15',
+    preloadLabel: 'Précontrainte (% de Rp0,2)',
+    preloadDefaultPrefix: "Défaut selon l'application",
+    resetParams: 'Réinitialiser les valeurs par défaut',
+    resultPlaceholder: 'Sélectionnez une application, une vis et une matière pour obtenir le couple.',
+    footerFormula: 'T = 0,9 · (0,16·p + 0,583·µ·da + 0,5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0,2 · As',
+    footerNote: 'Outil interne — vérifier toute valeur critique avant application.',
+    warnText: 'Vérifiez µ et le % de précharge : une valeur nulle ou négative fausse le calcul.',
+    dYieldLabel: 'Rp0,2 utilisé',
+    dAsLabel: 'Aire de contrainte As',
+    dFvLabel: 'Précharge Fv',
+    dPitchLabel: 'Pas / Ø primitif d2',
+    dRawLabel: 'Valeur brute (avant arrondi /10)',
+    noFactorSuffix: ' (sans facteur 0,9)',
+    factor08Suffix: ' (facteur 0,8)',
+    noMaterialData: 'Aucune donnée de matière pour ce diamètre.',
+    materialRange: (min,max,y,rm)=>`Plage appliquée : Ø ${min}–${max} mm → Rp0,2 = <b>${y} MPa</b>, Rm = ${rm} MPa`,
+    boltHint: (d,p,key,std)=>`Ø nominal <b>${d} mm</b> · pas <b>${p}</b> · douille <b>${key}</b> · ${std}`,
+    gaugeCaption: (pct,tmax,mu)=>`${pct}% du couple à 100% du Rp0,2 (${tmax} N·m à µ=${mu})`,
+    showAllMaterials: '+ Afficher toutes les matières',
+    showRecommendedMaterials: '— Afficher les matières recommandées uniquement',
+  },
+  en: {
+    title: 'Tightening<br>torque',
+    headerSub: 'HVB · Bolting',
+    step1Title: 'Application type',
+    step1Sub: 'Sets the head standard and default % of yield',
+    step2Title: 'Bolt size',
+    step2SubDefault: 'Select an application first',
+    byThread: 'By diameter',
+    bySocket: 'By socket / wrench',
+    fieldDiameter: 'Diameter',
+    fieldSocket: 'Socket / Allen key size',
+    metricToggle: 'Metric (DIN 933)',
+    imperialToggle: 'Imperial (ASME)',
+    step3Title: 'Material',
+    step3Sub: 'Used for Rp0.2 based on the diameter range',
+    fieldGrade: 'Grade',
+    step4Title: 'Parameters',
+    step4Sub: 'Editable defaults',
+    frictionLabel: 'Friction coefficient µ',
+    frictionDefault: 'Default: 0.15',
+    preloadLabel: 'Preload (% of Rp0.2)',
+    preloadDefaultPrefix: 'Default for the selected application',
+    resetParams: 'Reset to default values',
+    resultPlaceholder: 'Select an application, a bolt and a material to get the torque.',
+    footerFormula: 'T = 0.9 · (0.16·p + 0.583·µ·da + 0.5·µ·d2) · Fv &nbsp;·&nbsp; Fv = %preload · Rp0.2 · As',
+    footerNote: 'Internal tool — verify any critical value before applying it.',
+    warnText: 'Check µ and the preload %: a zero or negative value invalidates the calculation.',
+    dYieldLabel: 'Rp0.2 used',
+    dAsLabel: 'Stress area As',
+    dFvLabel: 'Preload Fv',
+    dPitchLabel: 'Pitch / pitch Ø d2',
+    dRawLabel: 'Raw value (before rounding to /10)',
+    noFactorSuffix: ' (0.9 factor removed)',
+    factor08Suffix: ' (0.8 factor)',
+    noMaterialData: 'No material data for this diameter.',
+    materialRange: (min,max,y,rm)=>`Applied range: Ø ${min}–${max} mm → Rp0.2 = <b>${y} MPa</b>, Rm = ${rm} MPa`,
+    boltHint: (d,p,key,std)=>`Nominal Ø <b>${d} mm</b> · pitch <b>${p}</b> · socket <b>${key}</b> · ${std}`,
+    gaugeCaption: (pct,tmax,mu)=>`${pct}% of the torque at 100% of Rp0.2 (${tmax} N·m at µ=${mu})`,
+    showAllMaterials: '+ Show all materials',
+    showRecommendedMaterials: '— Show recommended materials only',
+  }
+};
+
+const APP_TYPES = [
+  { id:'test_plug', label_fr:'Bouchons de test', label_en:'Test plugs', tag_fr:'DIN 933', tag_en:'DIN 933', standard:'DIN 933 / ISO 4017', preload:70 },
+  { id:'seat', label_fr:'Vis de siège', label_en:'Seat screws', tag_fr:'DIN 912 (Allen)', tag_en:'DIN 912 (Allen)', standard:'DIN 912 / ISO 4762', preload:70 },
+  { id:'body_bonnet', label_fr:'Body / Bonnet', label_en:'Body / Bonnet', tag_fr:'DIN 933', tag_en:'DIN 933', standard:'DIN 933 / ISO 4017', preload:70 },
+  { id:'bracket', label_fr:'Vis de bracket', label_en:'Bracket screws', tag_fr:'DIN 933 (ou impérial)', tag_en:'DIN 933 (or imperial)', standard:'DIN 933 / ISO 4017', preload:70, allowImperial:true },
+  { id:'flange_packing', label_fr:'Flange packing', label_en:'Flange packing', tag_fr:'DIN 933 · 25% Rp0,2', tag_en:'DIN 933 · 25% Rp0.2', standard:'DIN 933 / ISO 4017', preload:25 },
+];
+
+// Matières recommandées par défaut, par application. null = pas de restriction.
+const DEFAULT_MATERIAL_PREFIX = {
+  seat: 'ISO 3506-1 A4',
+  bracket: 'ISO 3506-1 A4',
+  body_bonnet: 'ASTM',
+  flange_packing: 'ASTM',
+};
+
+let state = {
+  lang: 'fr',
+  appType: null,
+  bracketUnit: 'metric',
+  sizeMode: 'thread',
+  boltIndex: null,
+  materialName: null,
+  friction: 0.15,
+  preload: 70,
+  showAllMaterials: false,
+};
+
+function t(key){ return I18N[state.lang][key]; }
+function appLabel(app){ return state.lang==='fr' ? app.label_fr : app.label_en; }
+function appTag(app){ return state.lang==='fr' ? app.tag_fr : app.tag_en; }
+
+function fmt(n, d=1){
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  const locale = state.lang==='fr' ? 'fr-BE' : 'en-GB';
+  return n.toLocaleString(locale, {minimumFractionDigits:d, maximumFractionDigits:d});
+}
+
+/* ---------- core data helpers ---------- */
+function currentStandard(){
+  const app = APP_TYPES.find(a=>a.id===state.appType);
+  if (!app) return null;
+  if (app.allowImperial && state.bracketUnit === 'imperial') return 'IMPERIAL_ANY';
+  return app.standard;
+}
+
+function boltsForCurrentStandard(){
+  const std = currentStandard();
+  if (!std) return [];
+  if (std === 'IMPERIAL_ANY') return BOLTING.filter(b=>b.unit==='Imperial');
+  return BOLTING.filter(b=>b.standard===std);
+}
+
+function allMaterialNames(){
+  return [...new Set(MATERIALS.map(m=>m.name))];
+}
+
+function allowedMaterialNames(appId){
+  const all = allMaterialNames();
+  if (state.showAllMaterials) return all;
+  const prefix = DEFAULT_MATERIAL_PREFIX[appId];
+  if (!prefix) return all;
+  const filtered = all.filter(n=>n.startsWith(prefix));
+  return filtered.length ? filtered : all;
+}
+
+function pickMaterialRow(materialName, d){
+  const rows = MATERIALS.filter(m=>m.name===materialName);
+  for (const r of rows){
+    if (d > r.min_size && d <= r.max_size) return r;
+  }
+  return rows.find(r=>r.min_size===0) || rows[0];
+}
+
+/* ---------- static text application ---------- */
+function applyStaticText(){
+  document.getElementById('tTitle').innerHTML = t('title');
+  document.getElementById('tHeaderSub').textContent = t('headerSub');
+  document.getElementById('tStep1Title').firstChild.textContent = t('step1Title');
+  document.getElementById('tStep1Sub').textContent = t('step1Sub');
+  document.getElementById('tMetricToggleBtn').textContent = t('metricToggle');
+  document.getElementById('tImperialToggleBtn').textContent = t('imperialToggle');
+  document.getElementById('tByThreadBtn').textContent = t('byThread');
+  document.getElementById('tBySocketBtn').textContent = t('bySocket');
+  document.getElementById('tFieldDiameter').textContent = t('fieldDiameter');
+  document.getElementById('tFieldSocket').textContent = t('fieldSocket');
+  document.getElementById('tStep3Title').firstChild.textContent = t('step3Title');
+  document.getElementById('tStep3Sub').textContent = t('step3Sub');
+  document.getElementById('tFieldGrade').textContent = t('fieldGrade');
+  document.getElementById('tStep4Title').firstChild.textContent = t('step4Title');
+  document.getElementById('tStep4Sub').textContent = t('step4Sub');
+  document.getElementById('tFrictionLabel').firstChild.textContent = t('frictionLabel');
+  document.getElementById('tFrictionDefault').textContent = t('frictionDefault');
+  document.getElementById('tPreloadLabel').firstChild.textContent = t('preloadLabel');
+  document.getElementById('tResetParams').textContent = t('resetParams');
+  document.getElementById('resultEmpty').textContent = t('resultPlaceholder');
+  document.getElementById('tFooterFormula').innerHTML = t('footerFormula');
+  document.getElementById('tFooterNote').textContent = t('footerNote');
+  document.getElementById('tDYieldLabel').textContent = t('dYieldLabel');
+  document.getElementById('tDAsLabel').textContent = t('dAsLabel');
+  document.getElementById('tDFvLabel').textContent = t('dFvLabel');
+  document.getElementById('tDPitchLabel').textContent = t('dPitchLabel');
+  document.getElementById('tDRawLabel').textContent = t('dRawLabel');
+  document.getElementById('toggleAllMaterialsBtn').textContent =
+    state.showAllMaterials ? t('showRecommendedMaterials') : t('showAllMaterials');
+  document.getElementById('langBtn').innerHTML = state.lang==='fr'
+    ? '<span class="cur">FR</span> / EN' : 'FR / <span class="cur">EN</span>';
+}
+
+document.getElementById('langBtn').addEventListener('click', ()=>{
+  state.lang = state.lang === 'fr' ? 'en' : 'fr';
+  render();
+});
+
+document.getElementById('toggleAllMaterialsBtn').addEventListener('click', ()=>{
+  state.showAllMaterials = !state.showAllMaterials;
+  render();
+});
+
+/* ---------- step 1 : application type ---------- */
+function renderAppTypes(){
+  const grid = document.getElementById('appTypeGrid');
+  grid.innerHTML = '';
+  APP_TYPES.forEach(app=>{
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (state.appType===app.id ? ' selected':'');
+    btn.innerHTML = appLabel(app) + '<span class="tag">'+appTag(app)+'</span>';
+    btn.onclick = ()=>{
+      state.appType = app.id;
+      state.preload = app.preload;
+      document.getElementById('preloadInput').value = app.preload;
+      state.bracketUnit = 'metric';
+      state.boltIndex = null;
+      state.materialName = null;
+      state.showAllMaterials = false;
+      render();
+    };
+    grid.appendChild(btn);
+  });
+  const app = APP_TYPES.find(a=>a.id===state.appType);
+  document.getElementById('imperialToggleWrap').style.display = (app && app.allowImperial) ? 'block' : 'none';
+}
+
+document.getElementById('bracketUnitToggle').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  state.bracketUnit = btn.dataset.v;
+  state.boltIndex = null;
+  render();
+});
+
+document.getElementById('sizeModeToggle').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  state.sizeMode = btn.dataset.v;
+  render();
+});
+
+/* ---------- step 2 : bolt size ---------- */
+function renderBoltOptions(){
+  const bolts = boltsForCurrentStandard();
+  const app = APP_TYPES.find(a=>a.id===state.appType);
+  document.getElementById('standardLabel').textContent = app ? (bolts.length ? bolts[0].standard : '') : t('step2SubDefault');
+
+  const threadSelect = document.getElementById('threadSelect');
+  const socketSelect = document.getElementById('socketSelect');
+  threadSelect.innerHTML = '';
+  socketSelect.innerHTML = '';
+
+  if (!bolts.length){
+    threadSelect.innerHTML = '<option>—</option>';
+    socketSelect.innerHTML = '<option>—</option>';
+    document.getElementById('boltHint').textContent = '';
+    return;
+  }
+
+  bolts.forEach(b=>{
+    const realIdx = BOLTING.indexOf(b);
+    const opt = document.createElement('option');
+    opt.value = realIdx;
+    opt.textContent = b.thread;
+    threadSelect.appendChild(opt);
+  });
+
+  const seen = new Set();
+  bolts.forEach(b=>{
+    const key = String(b.key_size);
+    if (seen.has(key)) return;
+    seen.add(key);
+    const realIdx = BOLTING.indexOf(b);
+    const opt = document.createElement('option');
+    opt.value = realIdx;
+    opt.textContent = (typeof b.key_size === 'number' ? b.key_size + ' mm' : b.key_size) + '  →  ' + b.thread;
+    socketSelect.appendChild(opt);
+  });
+
+  if (state.boltIndex === null || !bolts.includes(BOLTING[state.boltIndex])){
+    state.boltIndex = parseInt(threadSelect.value || socketSelect.value);
+  }
+  threadSelect.value = state.boltIndex;
+  socketSelect.value = state.boltIndex;
+
+  document.getElementById('threadFieldWrap').style.display = state.sizeMode==='thread' ? 'block':'none';
+  document.getElementById('socketFieldWrap').style.display = state.sizeMode==='socket' ? 'block':'none';
+
+  const b = BOLTING[state.boltIndex];
+  if (b){
+    document.getElementById('boltHint').innerHTML = t('boltHint')(
+      fmt(b.d,1),
+      (typeof b.pitch==='number'?fmt(b.pitch,2):b.pitch),
+      b.key_size+(typeof b.key_size==='number'?' mm':''),
+      b.standard
+    );
+  }
+}
+
+document.getElementById('threadSelect').addEventListener('change', (e)=>{
+  state.boltIndex = parseInt(e.target.value);
+  render();
+});
+document.getElementById('socketSelect').addEventListener('change', (e)=>{
+  state.boltIndex = parseInt(e.target.value);
+  render();
+});
+
+/* ---------- step 3 : material ---------- */
+function renderMaterialOptions(){
+  const sel = document.getElementById('materialSelect');
+  const names = allowedMaterialNames(state.appType);
+  sel.innerHTML = '';
+  names.forEach(n=>{
+    const opt = document.createElement('option');
+    opt.value = n;
+    opt.textContent = n;
+    sel.appendChild(opt);
+  });
+  if (!state.materialName || !names.includes(state.materialName)) state.materialName = names[0];
+  sel.value = state.materialName;
+}
+document.getElementById('materialSelect').addEventListener('change', (e)=>{
+  state.materialName = e.target.value;
+  render();
+});
+
+document.getElementById('frictionInput').addEventListener('input', (e)=>{
+  state.friction = parseFloat(e.target.value) || 0;
+  render();
+});
+document.getElementById('preloadInput').addEventListener('input', (e)=>{
+  state.preload = parseFloat(e.target.value) || 0;
+  render();
+});
+document.getElementById('resetParamsBtn').addEventListener('click', ()=>{
+  const app = APP_TYPES.find(a=>a.id===state.appType);
+  state.friction = 0.15;
+  state.preload = app ? app.preload : 70;
+  document.getElementById('frictionInput').value = 0.15;
+  document.getElementById('preloadInput').value = state.preload;
+  render();
+});
+
+/* ---------- gauge ---------- */
+function gaugeSVG(percentOfScale){
+  const clamped = Math.max(0, Math.min(1, percentOfScale));
+  const cx=90, cy=90, r=70;
+  const START = -120, END = 120;
+
+  function pt(angleDeg, radius){
+    const rad = (angleDeg - 90) * Math.PI/180;
+    return { x: cx + radius*Math.cos(rad), y: cy + radius*Math.sin(rad) };
+  }
+
+  const needleAngle = START + clamped*(END-START);
+  const trackR = r*0.92;
+  const p0 = pt(START, trackR);
+  const p1 = pt(END, trackR);
+  const pNeedleArc = pt(needleAngle, trackR);
+  const large = (needleAngle - START) > 180 ? 1 : 0;
+
+  let ticks = '';
+  for (let i=0;i<=8;i++){
+    const a = START + (i/8)*(END-START);
+    const t1 = pt(a, r*0.78);
+    const t2 = pt(a, r*0.88);
+    ticks += `<line x1="${t1.x.toFixed(1)}" y1="${t1.y.toFixed(1)}" x2="${t2.x.toFixed(1)}" y2="${t2.y.toFixed(1)}" stroke="#4A5D68" stroke-width="2"/>`;
+  }
+
+  const needleTip = pt(needleAngle, r*0.68);
+
+  return `<svg width="180" height="150" viewBox="0 0 180 150">
+    <path d="M ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} A ${trackR} ${trackR} 0 1 1 ${p1.x.toFixed(1)} ${p1.y.toFixed(1)}"
+      fill="none" stroke="#2A3940" stroke-width="10" stroke-linecap="round"/>
+    <path d="M ${p0.x.toFixed(1)} ${p0.y.toFixed(1)} A ${trackR} ${trackR} 0 ${large} 1 ${pNeedleArc.x.toFixed(1)} ${pNeedleArc.y.toFixed(1)}"
+      fill="none" stroke="#D65A2E" stroke-width="10" stroke-linecap="round"/>
+    ${ticks}
+    <line x1="${cx}" y1="${cy}" x2="${needleTip.x.toFixed(1)}" y2="${needleTip.y.toFixed(1)}" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${cx}" cy="${cy}" r="6" fill="#fff"/>
+  </svg>`;
+}
+
+/* ---------- toggle sync ---------- */
+function syncToggles(){
+  document.querySelectorAll('#sizeModeToggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.v === state.sizeMode);
+  });
+  document.querySelectorAll('#bracketUnitToggle button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.v === state.bracketUnit);
+  });
+}
+
+/* ---------- main render ---------- */
+function render(){
+  applyStaticText();
+  renderAppTypes();
+  renderBoltOptions();
+  renderMaterialOptions();
+  syncToggles();
+
+  const bolt = BOLTING[state.boltIndex];
+  const app = APP_TYPES.find(a=>a.id===state.appType);
+
+  document.getElementById('preloadDefaultLabel').textContent =
+    app ? (t('preloadDefaultPrefix')+' ('+appLabel(app)+'): '+app.preload+'%') : t('preloadDefaultPrefix');
+
+  const resultEmpty = document.getElementById('resultEmpty');
+  const resultContent = document.getElementById('resultContent');
+
+  if (!bolt || !state.materialName || !app){
+    resultEmpty.style.display = 'block';
+    resultContent.style.display = 'none';
+    return;
+  }
+
+  const matRow = pickMaterialRow(state.materialName, bolt.d);
+  document.getElementById('materialHint').innerHTML = matRow
+    ? t('materialRange')(fmt(matRow.min_size,0), fmt(matRow.max_size,0), fmt(matRow.yield,0), fmt(matRow.tensile,0))
+    : t('noMaterialData');
+
+  if (!matRow){
+    resultEmpty.style.display = 'block';
+    resultContent.style.display = 'none';
+    resultEmpty.textContent = t('noMaterialData');
+    return;
+  }
+
+  const As = bolt.unit === 'Metric' ? bolt.as_metric : bolt.as_imperial;
+  const pitch = bolt.pitch;
+  const mu = state.friction;
+  const preloadPct = state.preload / 100;
+
+  const Fv = preloadPct * matRow.yield * As; // Newtons
+  const pitchVal = typeof pitch === 'number' ? pitch : parseFloat(String(pitch).replace(',','.')) || 0;
+
+  // Facteur de la formule :
+  // - petits métriques (≤ M10 inclus) en vis de siège ou vis de bracket métrique → facteur retiré (=1)
+  // - body/bonnet en métrique M16 à M30 inclus → facteur = 0,8 au lieu de 0,9
+  // - sinon → 0,9
+  const dropFactor = (app.id === 'seat' || app.id === 'bracket') && bolt.unit === 'Metric' && bolt.d <= 10;
+  const bodyBonnetReduced = app.id === 'body_bonnet' && bolt.unit === 'Metric' && bolt.d >= 16 && bolt.d <= 30;
+  let factor = 0.9;
+  let factorNote = '';
+  if (dropFactor){ factor = 1; factorNote = t('noFactorSuffix'); }
+  else if (bodyBonnetReduced){ factor = 0.8; factorNote = t('factor08Suffix'); }
+
+  const T_Nmm_raw = factor * (0.16*pitchVal + 0.583*mu*bolt.da + 0.5*mu*bolt.d2) * Fv;
+  const T_Nm_raw = T_Nmm_raw / 1000;
+  const T_Nm = Math.round(T_Nm_raw / 10) * 10;
+  const T_lbft = Math.round(T_Nm * 0.737562);
+
+  resultEmpty.style.display = 'none';
+  resultContent.style.display = 'block';
+
+  document.getElementById('resultContext').textContent =
+    appLabel(app).toUpperCase() + ' · ' + bolt.thread + ' · ' + state.materialName;
+  document.getElementById('torqueNm').innerHTML = fmt(T_Nm, 0) + '<span>N·m</span>';
+  document.getElementById('torqueAlt').textContent = fmt(T_lbft, 0) + ' lb·ft';
+
+  document.getElementById('dYield').textContent = fmt(matRow.yield,0) + ' MPa';
+  document.getElementById('dAs').textContent = fmt(As,2) + ' mm²';
+  document.getElementById('dFv').textContent = fmt(Fv/1000,2) + ' kN';
+  document.getElementById('dPitch').textContent = (typeof pitch==='number'?fmt(pitch,2)+' mm':pitch) + ' / ' + fmt(bolt.d2,2)+' mm';
+  document.getElementById('dRaw').textContent = fmt(T_Nm_raw,2) + ' N·m' + factorNote;
+
+  const Fv_max = 1.0 * matRow.yield * As;
+  const T_Nmm_max = factor * (0.16*pitchVal + 0.583*mu*bolt.da + 0.5*mu*bolt.d2) * Fv_max;
+  const T_Nm_max = T_Nmm_max / 1000;
+  const gaugePct = T_Nm_max > 0 ? Math.min(1, T_Nm_raw / T_Nm_max) : 0;
+  document.getElementById('gaugeWrap').innerHTML = gaugeSVG(gaugePct);
+  document.getElementById('gaugeCaption').textContent =
+    t('gaugeCaption')(fmt(gaugePct*100,0), fmt(T_Nm_max,0), fmt(mu,2));
+
+  const warnEl = document.getElementById('lowSizeWarn');
+  if (mu <= 0 || preloadPct <= 0){
+    warnEl.style.display='block';
+    warnEl.textContent = t('warnText');
+  } else {
+    warnEl.style.display='none';
+  }
+}
+
+render();
+</script>
+</body>
+</html>
