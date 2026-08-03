@@ -1059,6 +1059,9 @@ document.getElementById('appTypeSelect').addEventListener('change', (e)=>{
   state.boltIndex = null;
   state.materialName = null;
   state.showAllMaterials = false;
+  state.selectedToolName = null;
+  state.stagePct1 = 50;
+  state.stagePct2 = 75;
   render();
 });
 
@@ -1067,6 +1070,9 @@ document.getElementById('bracketUnitToggle').addEventListener('click', (e)=>{
   if (!btn) return;
   state.bracketUnit = btn.dataset.v;
   state.boltIndex = null;
+  state.selectedToolName = null;
+  state.stagePct1 = 50;
+  state.stagePct2 = 75;
   render();
 });
 
@@ -1112,6 +1118,9 @@ function renderBoltOptions(){
 
 document.getElementById('socketSelect').addEventListener('change', (e)=>{
   state.boltIndex = parseInt(e.target.value);
+  state.selectedToolName = null;
+  state.stagePct1 = 50;
+  state.stagePct2 = 75;
   render();
 });
 
@@ -1261,7 +1270,12 @@ function render(){
     const btn = document.createElement('button');
     btn.className = 'tr-pill' + (reco.tool.name === state.selectedToolName ? ' active' : '');
     btn.innerHTML = (idx===0 ? `<span class="tr-pill-badge">${t('optimalBadge')}</span>` : '') + reco.tool.name;
-    btn.onclick = ()=>{ state.selectedToolName = reco.tool.name; render(); };
+    btn.onclick = ()=>{
+      state.selectedToolName = reco.tool.name;
+      state.stagePct1 = 50;
+      state.stagePct2 = 75;
+      render();
+    };
     pillsEl.appendChild(btn);
   });
 
