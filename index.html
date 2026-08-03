@@ -273,6 +273,214 @@ select:focus, input:focus{
 }
 .result-params .reset-link{ color: var(--accent); }
 .result-params .filter-row{ justify-content:center; margin-top:8px; }
+
+.sens-table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  margin-top:8px;
+}
+.sens-table td{
+  padding:6px 6px;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+.sens-table tr:last-child td{ border-bottom:none; }
+.sens-table tr.current td{ color: var(--accent); font-weight:700; }
+.sens-table td:last-child{ text-align:right; }
+
+.ref-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:11.5px;
+  margin-top:8px;
+}
+.ref-table td{
+  padding:7px 4px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+}
+.ref-table tr:last-child td{ border-bottom:none; }
+.ref-table td:last-child{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:600;
+  text-align:right;
+  white-space:nowrap;
+  padding-left:10px;
+}
+.ref-note{
+  font-size:10.5px;
+  color: var(--ink-soft);
+  margin-top:8px;
+  line-height:1.5;
+  font-style:italic;
+}
+.ref-note + .ref-note{ margin-top:6px; }
+
+.tool-reco{
+  border:1px solid rgba(214,90,46,0.4);
+  background: rgba(214,90,46,0.12);
+  border-radius:8px;
+  padding:10px 12px;
+  margin: 10px 0 0;
+}
+.tool-reco .tr-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:#FBD9C8;
+  margin-bottom:3px;
+}
+.tool-reco .tr-name{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:14.5px;
+  color:#fff;
+  margin-bottom:2px;
+}
+.tool-reco .tr-note{
+  color:#E8CFC5;
+  font-size:11px;
+  line-height:1.4;
+}
+.tr-pills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:10px;
+}
+.tr-pill{
+  position:relative;
+  border:1.5px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+  color:#fff;
+  border-radius:20px;
+  padding:6px 13px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  font-weight:500;
+  cursor:pointer;
+  margin-top:6px;
+}
+.tr-pill.active{
+  border-color: var(--accent);
+  background: rgba(214,90,46,0.28);
+  font-weight:700;
+}
+.tr-pill-badge{
+  position:absolute;
+  top:-9px;
+  left:10px;
+  background: var(--accent);
+  color:#fff;
+  font-size:8px;
+  font-weight:700;
+  padding:1px 6px;
+  border-radius:8px;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+}
+.tr-pressure{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  font-weight:600;
+  color:#fff;
+  background: rgba(255,255,255,0.1);
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:5px;
+  margin-bottom:5px;
+}
+.tr-stages{
+  margin-top:6px;
+  margin-bottom:6px;
+}
+.tr-stages-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:#9FB3BE;
+  margin-bottom:4px;
+}
+.stage-row{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  padding:3px 0;
+}
+.stage-row input[type=number]{
+  width:42px;
+  padding:3px 4px;
+  font-size:11px;
+  background: rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.25);
+  color:#fff;
+  border-radius:4px;
+  text-align:right;
+}
+.stage-row .stage-pct-fixed{
+  width:42px;
+  text-align:right;
+  color:#B9C6CC;
+}
+.stage-row .stage-arrow{ color:#9FB3BE; }
+.stage-row .stage-val{
+  font-weight:700;
+  color:#fff;
+}
+.stage-row.warn .stage-val{ color: var(--accent); }
+.stage-row.warn input[type=number]{ border-color: var(--accent); }
+.stage-warn{
+  font-size:10.5px;
+  color: var(--accent);
+  line-height:1.4;
+  margin-top:4px;
+}
+
+.tr-util{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:8px 0 10px;
+}
+.tr-util-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color:#9FB3BE;
+  white-space:nowrap;
+}
+.tr-util-bar{
+  flex:1;
+  height:13px;
+  background: rgba(255,255,255,0.12);
+  border-radius:7px;
+  overflow:hidden;
+}
+.tr-util-fill{
+  height:100%;
+  border-radius:7px 0 0 7px;
+  transition: width .25s ease, background-color .25s ease;
+}
+.tr-util-pct{
+  font-family:'IBM Plex Mono',monospace;
+  font-weight:700;
+  font-size:11.5px;
+  color:#fff;
+  min-width:36px;
+  text-align:right;
+}
+.tr-converter-link{
+  display:inline-block;
+  margin-top:9px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  color: var(--accent);
+  text-decoration: underline;
+}
 .detail-grid{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -359,6 +567,33 @@ footer.foot{
       <div class="result-eyebrow" id="resultContext">—</div>
       <div class="result-torque" id="torqueNm">0<span>N·m</span></div>
       <div class="result-alt" id="torqueAlt">0 lb·ft</div>
+      <div class="tool-reco" id="toolReco" style="display:none;">
+        <div class="tr-label" id="tToolRecoLabel">Outil recommandé</div>
+        <div class="tr-pills" id="toolRecoPills"></div>
+        <div class="tr-note" id="toolRecoNote"></div>
+        <div class="tr-util" id="trUtilWrap" style="display:none;">
+          <span class="tr-util-label" id="tUtilLabel">Utilisation</span>
+          <div class="tr-util-bar"><div class="tr-util-fill" id="utilFill" style="width:0%"></div></div>
+          <span class="tr-util-pct" id="utilPct">—</span>
+        </div>
+        <div class="tr-stages" id="trStagesWrap" style="display:none;">
+          <div class="tr-stages-title" id="tStagesTitle">Serrage étagé</div>
+          <div class="stage-row">
+            <input type="number" id="stagePct1" value="50" min="1" max="99"><span>%</span>
+            <span class="stage-arrow">→</span><span class="stage-val" id="stageVal1">—</span>
+          </div>
+          <div class="stage-row">
+            <input type="number" id="stagePct2" value="75" min="1" max="99"><span>%</span>
+            <span class="stage-arrow">→</span><span class="stage-val" id="stageVal2">—</span>
+          </div>
+          <div class="stage-row">
+            <span class="stage-pct-fixed">100%</span>
+            <span class="stage-arrow">→</span><span class="stage-val" id="stageVal3">—</span>
+          </div>
+          <div class="stage-warn" id="stageWarnNote" style="display:none;"></div>
+        </div>
+        <a class="tr-converter-link" id="converterLink" href="https://hytorc.com/converter" target="_blank" rel="noopener"></a>
+      </div>
       <div class="detail-grid">
         <div><div class="d-label" id="tDYieldLabel">Rp0,2 utilisé</div><div class="d-val" id="dYield">—</div></div>
         <div><div class="d-label" id="tDAsLabel">Aire de contrainte As</div><div class="d-val" id="dAs">—</div></div>
@@ -382,8 +617,27 @@ footer.foot{
         <div class="filter-row">
           <button class="reset-link" id="resetParamsBtn">↺ <span id="tResetParams">Réinitialiser</span></button>
         </div>
+        <div class="filter-row" style="margin-top:4px;">
+          <button class="reset-link" id="toggleSensitivityBtn"></button>
+        </div>
+        <div id="sensitivityWrap" style="display:none;">
+          <table class="sens-table"><tbody id="sensitivityBody"></tbody></table>
+        </div>
       </div>
       <div class="warn" id="lowSizeWarn" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- REPÈRES µ -->
+  <div class="card">
+    <div class="card-title" id="tRefTitle">Repères µ (indicatif)</div>
+    <div class="filter-row" style="justify-content:flex-start;">
+      <button class="reset-link" id="toggleReferenceBtn"></button>
+    </div>
+    <div id="referenceWrap" style="display:none;">
+      <table class="ref-table"><tbody id="referenceBody"></tbody></table>
+      <div class="ref-note" id="refNote"></div>
+      <div class="ref-note" id="refApplyNote"></div>
     </div>
   </div>
 
@@ -430,6 +684,36 @@ const I18N = {
     showAllMaterials: '+ Toutes les matières',
     showRecommendedMaterials: '— Matières recommandées',
     preloadDefault: (pct)=>`Défaut : ${pct}%`,
+    showSensitivity: '+ Sensibilité au µ',
+    hideSensitivity: '— Masquer la sensibilité',
+    toolRecoLabel: 'Outil recommandé (HYTORC)',
+    toolRecoCassette: (socket)=>`Cassette Ø${socket} mm compatible directement avec l'outil.`,
+    toolRecoSq: (socket, sq)=>`Douille ${socket} mm à prévoir sur carré ${sq}.`,
+    pressureLine: (bar, psi)=>`Pression à régler : ${bar} bar (${psi} PSI)`,
+    pressureUnderMin: (bar, psi)=>`Pression min. recommandée : ${bar} bar (${psi} PSI) — l'outil est surdimensionné pour ce couple, précision réduite en bas d'échelle.`,
+    pressureOverMax: (bar, psi)=>`Couple au-delà de la table (max ${bar} bar / ${psi} PSI) — ne pas dépasser.`,
+    stagesTitle: 'Serrage étagé',
+    stageBelowMin: (pct)=>`Le palier à ${pct}% est en dessous du minimum fiable de l'outil — pourcentage ajusté automatiquement.`,
+    utilLabel: 'Utilisation',
+    toolRecoManual: (range, insert)=>`Clé dynamométrique manuelle (${range} Nm) — insert ${insert}.`,
+    toolRecoManualTooLow: 'Couple trop faible pour les clés dynamométriques répertoriées (< 6 Nm) — vérifier l\'outil adapté.',
+    optimalBadge: 'Optimal',
+    converterLinkText: '↗ Réglage de la pression : convertisseur officiel HYTORC',
+    toolRecoFallback: 'Couple couvert par cet outil, mais aucune correspondance directe de taille trouvée — à vérifier manuellement.',
+    toolRecoNone: 'Aucun outil du parc renseigné ne couvre ce couple.',
+    refTitle: 'Repères µ (indicatif)',
+    showReference: '+ Afficher la table',
+    hideReference: '— Masquer la table',
+    refNote: 'Valeurs indicatives d\'ordre de grandeur (littérature technique générale), classées par famille de matière et état de surface — les nuances précises (ex. ASTM A193 B7 vs B16, ou B8 vs B8M) n\'ont pas de µ distinct publié : c\'est surtout le traitement de surface et le lubrifiant qui font varier µ réel, pas la nuance en tant que telle. À vérifier par essai couple-tension pour toute application critique. Une rondelle ne change pas µ en tant que tel mais stabilise le couple obtenu en pratique.',
+    refApplyNote: 'Application : enduire le filetage ET la face d\'appui (sous tête ou sous écrou/rondelle) — le µ de la formule couvre les deux frottements, lubrifier seulement le filetage fausse le résultat. Une fine pellicule uniforme suffit ; l\'excès n\'abaisse pas µ davantage et peut s\'accumuler ou piéger des impuretés. Surfaces propres et sèches avant application. Réappliquer à chaque démontage/remontage — un lubrifiant ancien ou desséché ne garantit plus le µ visé. Sur inox, l\'anti-grippant est quasi indispensable pour limiter le risque de grippage, surtout au serrage à la visseuse.',
+    refRows: [
+      ['Acier / Acier — sec, sans lubrification', '0,18 – 0,25'],
+      ['Acier / Acier — graissé (graisse standard)', '0,10 – 0,15'],
+      ['Acier / Acier — pâte anti-grippante (MoS₂, cuivre…)', '0,08 – 0,12'],
+      ['Inox / Inox — sec, sans lubrification', '0,25 – 0,35+'],
+      ['Inox / Inox — graissé (graisse standard)', '0,15 – 0,20'],
+      ['Inox / Inox — pâte anti-grippante', '0,12 – 0,18'],
+    ],
   },
   en: {
     title: 'Tightening torque',
@@ -462,6 +746,36 @@ const I18N = {
     showAllMaterials: '+ All materials',
     showRecommendedMaterials: '— Recommended materials',
     preloadDefault: (pct)=>`Default: ${pct}%`,
+    showSensitivity: '+ µ sensitivity',
+    hideSensitivity: '— Hide sensitivity',
+    toolRecoLabel: 'Recommended tool (HYTORC)',
+    toolRecoCassette: (socket)=>`Ø${socket} mm cassette directly compatible with the tool.`,
+    toolRecoSq: (socket, sq)=>`${socket} mm socket needed on ${sq} square drive.`,
+    pressureLine: (bar, psi)=>`Pressure to set: ${bar} bar (${psi} PSI)`,
+    pressureUnderMin: (bar, psi)=>`Recommended min. pressure: ${bar} bar (${psi} PSI) — the tool is oversized for this torque, reduced accuracy at the low end of its scale.`,
+    pressureOverMax: (bar, psi)=>`Torque beyond the chart (max ${bar} bar / ${psi} PSI) — do not exceed.`,
+    stagesTitle: 'Staged tightening',
+    stageBelowMin: (pct)=>`The ${pct}% stage is below the tool's reliable minimum — percentage adjusted automatically.`,
+    utilLabel: 'Utilization',
+    toolRecoManual: (range, insert)=>`Manual torque wrench (${range} Nm) — insert ${insert}.`,
+    toolRecoManualTooLow: 'Torque too low for the listed torque wrenches (< 6 Nm) — check for a suitable tool.',
+    optimalBadge: 'Optimal',
+    converterLinkText: '↗ Pressure setting: official HYTORC converter',
+    toolRecoFallback: 'Torque covered by this tool, but no direct size match found — verify manually.',
+    toolRecoNone: 'No tool in the listed fleet covers this torque.',
+    refTitle: 'µ reference (indicative)',
+    showReference: '+ Show table',
+    hideReference: '— Hide table',
+    refNote: 'Indicative order-of-magnitude values (general technical literature), grouped by material family and surface condition — specific grades (e.g. ASTM A193 B7 vs B16, or B8 vs B8M) don\'t have a distinct published µ: surface treatment and lubricant drive the actual µ far more than the grade itself. Verify with a torque-tension test for any critical application. A washer doesn\'t change µ itself but tends to stabilize the resulting torque in practice.',
+    refApplyNote: 'Application: coat both the thread AND the bearing face (under the head or under the nut/washer) — the µ in the formula covers both frictions, lubricating only the thread will skew the result. A thin, even film is enough; excess doesn\'t lower µ any further and can build up or trap debris. Surfaces should be clean and dry before application. Reapply on every disassembly/reassembly — old or dried-out lubricant no longer guarantees the intended µ. On stainless, anti-seize is nearly mandatory to limit galling risk, especially when tightening with a power driver.',
+    refRows: [
+      ['Steel / Steel — dry, no lubrication', '0.18 – 0.25'],
+      ['Steel / Steel — greased (standard grease)', '0.10 – 0.15'],
+      ['Steel / Steel — anti-seize paste (MoS₂, copper…)', '0.08 – 0.12'],
+      ['Stainless / Stainless — dry, no lubrication', '0.25 – 0.35+'],
+      ['Stainless / Stainless — greased (standard grease)', '0.15 – 0.20'],
+      ['Stainless / Stainless — anti-seize paste', '0.12 – 0.18'],
+    ],
   }
 };
 
@@ -473,7 +787,109 @@ const APP_TYPES = [
   { id:'flange_packing', label_fr:'Flange packing', label_en:'Flange packing', standard:'DIN 933 / ISO 4017', preload:25 },
 ];
 
-// Matières recommandées par défaut, par application. null/absent = pas de restriction.
+// Clés dynamométriques manuelles STAHLWILLE — utilisées en priorité jusqu'à 800 Nm.
+// Au-delà, on bascule sur les outils hydrauliques.
+const MANUAL_TOOLS = [
+  { name:'STAHLWILLE 730N/5',  minNm:6,   maxNm:50,  insert:'9 x 12 mm' },
+  { name:'STAHLWILLE 730N/12', minNm:25,  maxNm:130, insert:'9 x 12 mm' },
+  { name:'STAHLWILLE 730N/40', minNm:80,  maxNm:400, insert:'14 x 18 mm' },
+  { name:'STAHLWILLE 730N/65', minNm:130, maxNm:650, insert:'14 x 18 mm' },
+  { name:'STAHLWILLE 730N/80', minNm:160, maxNm:800, insert:'22 x 28 mm' },
+];
+const MANUAL_TOOLS_MAX = 800;
+
+// Parc d'outils hydrauliques HYTORC.
+// Cassette : la taille indiquée est le Ø hex directement compatible (couple max = couple plein de l'outil, quelle que soit la cassette).
+// Carré (sq) : plage de douille indicative (mm) par taille de carré conducteur, issue de standards fabricants de douilles industrielles — à confirmer avec le stock réel.
+// ICE est prioritaire sur AVANTI (plus compact, douilles à chocs standard).
+const CURVE_STEALTH_4 = [[1500,104,819],[1600,110,874],[1800,124,983],[2000,138,1093],[2200,152,1200],[2400,165,1307],[2600,179,1414],[2800,193,1521],[3000,207,1628],[3200,220,1737],[3400,234,1846],[3600,248,1954],[3800,262,2063],[4000,276,2172],[4200,290,2278],[4400,303,2384],[4600,317,2490],[4800,331,2596],[5000,345,2702],[5200,358,2813],[5400,372,2925],[5600,386,3036],[5800,400,3147],[6000,414,3259],[6200,427,3369],[6400,441,3478],[6600,455,3588],[6800,468,3698],[7000,482,3808],[7200,496,3913],[7400,510,4019],[7600,524,4124],[7800,538,4230],[8000,552,4335],[8200,565,4446],[8400,579,4558],[8600,593,4669],[8800,607,4780],[9000,620,4891],[9200,634,5003],[9400,648,5114],[9600,662,5226],[9800,676,5338],[10000,690,5450]];
+const CURVE_STEALTH_8 = [[1500,104,1625],[1600,110,1730],[1800,124,1939],[2000,138,2149],[2200,152,2363],[2400,165,2578],[2600,179,2792],[2800,193,3006],[3000,207,3221],[3200,220,3442],[3400,234,3663],[3600,248,3884],[3800,262,4105],[4000,276,4326],[4200,290,4547],[4400,303,4768],[4600,317,4989],[4800,331,5211],[5000,345,5432],[5200,358,5656],[5400,372,5879],[5600,386,6103],[5800,400,6327],[6000,414,6550],[6200,427,6762],[6400,441,6974],[6600,455,7186],[6800,468,7398],[7000,482,7610],[7200,496,7825],[7400,510,8040],[7600,524,8255],[7800,538,8470],[8000,552,8685],[8200,565,8900],[8400,579,9114],[8600,593,9328],[8800,607,9542],[9000,620,9756],[9200,634,9970],[9400,648,10183],[9600,662,10396],[9800,676,10610],[10000,690,10823]];
+const CURVE_STEALTH_14 = [[1500,104,2854],[1600,110,3047],[1800,124,3433],[2000,138,3819],[2200,152,4205],[2400,165,4590],[2600,179,4976],[2800,193,5362],[3000,207,5748],[3200,220,6134],[3400,234,6520],[3600,248,6906],[3800,262,7292],[4000,276,7678],[4200,290,8063],[4400,303,8449],[4600,317,8834],[4800,331,9219],[5000,345,9604],[5200,358,9993],[5400,372,10382],[5600,386,10771],[5800,400,11160],[6000,414,11548],[6200,427,11936],[6400,441,12324],[6600,455,12711],[6800,468,13099],[7000,482,13487],[7200,496,13878],[7400,510,14268],[7600,524,14659],[7800,538,15050],[8000,552,15440],[8200,565,15828],[8400,579,16216],[8600,593,16603],[8800,607,16991],[9000,620,17379],[9200,634,17768],[9400,648,18157],[9600,662,18546],[9800,676,18935],[10000,690,19324]];
+const CURVE_ICE_1 = [[1500,104,266],[1600,110,283],[1800,124,319],[2000,138,354],[2200,152,390],[2400,165,426],[2600,179,463],[2800,193,499],[3000,207,535],[3200,220,571],[3400,234,606],[3600,248,641],[3800,262,676],[4000,276,712],[4200,290,747],[4400,303,782],[4600,317,817],[4800,331,853],[5000,345,888],[5200,358,922],[5400,372,956],[5600,386,990],[5800,400,1023],[6000,414,1057],[6200,427,1092],[6400,441,1126],[6600,455,1161],[6800,468,1195],[7000,482,1230],[7200,496,1263],[7400,510,1297],[7600,524,1330],[7800,538,1364],[8000,552,1398],[8200,565,1432],[8400,579,1466],[8600,593,1500],[8800,607,1534],[9000,620,1568],[9200,634,1603],[9400,648,1637],[9600,662,1672],[9800,676,1706],[10000,690,1741]];
+const CURVE_ICE_3 = [[1500,104,623],[1600,110,666],[1800,124,752],[2000,138,838],[2200,152,922],[2400,165,1006],[2600,179,1090],[2800,193,1175],[3000,207,1259],[3200,220,1344],[3400,234,1429],[3600,248,1515],[3800,262,1600],[4000,276,1685],[4200,290,1769],[4400,303,1853],[4600,317,1937],[4800,331,2020],[5000,345,2104],[5200,358,2189],[5400,372,2274],[5600,386,2359],[5800,400,2443],[6000,414,2528],[6200,427,2612],[6400,441,2695],[6600,455,2779],[6800,468,2863],[7000,482,2946],[7200,496,3029],[7400,510,3112],[7600,524,3195],[7800,538,3278],[8000,552,3361],[8200,565,3444],[8400,579,3527],[8600,593,3611],[8800,607,3694],[9000,620,3777],[9200,634,3858],[9400,648,3939],[9600,662,4019],[9800,676,4100],[10000,690,4180]];
+const CURVE_ICE_5 = [[1500,104,1090],[1600,110,1163],[1800,124,1308],[2000,138,1453],[2200,152,1599],[2400,165,1744],[2600,179,1889],[2800,193,2034],[3000,207,2180],[3200,220,2325],[3400,234,2470],[3600,248,2616],[3800,262,2761],[4000,276,2906],[4200,290,3052],[4400,303,3197],[4600,317,3342],[4800,331,3488],[5000,345,3633],[5200,358,3778],[5400,372,3924],[5600,386,4069],[5800,400,4214],[6000,414,4360],[6200,427,4505],[6400,441,4650],[6600,455,4796],[6800,468,4941],[7000,482,5086],[7200,496,5232],[7400,510,5377],[7600,524,5522],[7800,538,5667],[8000,552,5813],[8200,565,5958],[8400,579,6103],[8600,593,6249],[8800,607,6394],[9000,620,6539],[9200,634,6685],[9400,648,6830],[9600,662,6975],[9800,676,7121],[10000,690,7266]];
+const CURVE_AVANTI_10 = [[1500,104,2440],[1600,110,2603],[1800,124,2928],[2000,138,3253],[2200,152,3577],[2400,165,3901],[2600,179,4225],[2800,193,4549],[3000,207,4873],[3200,220,5197],[3400,234,5521],[3600,248,5845],[3800,262,6169],[4000,276,6493],[4200,290,6819],[4400,303,7144],[4600,317,7469],[4800,331,7795],[5000,345,8120],[5200,358,8445],[5400,372,8771],[5600,386,9096],[5800,400,9421],[6000,414,9747],[6200,427,10071],[6400,441,10395],[6600,455,10719],[6800,468,11043],[7000,482,11367],[7200,496,11692],[7400,510,12017],[7600,524,12342],[7800,538,12667],[8000,552,12992],[8200,565,13317],[8400,579,13642],[8600,593,13966],[8800,607,14291],[9000,620,14616],[9200,634,14877],[9400,648,15137],[9600,662,15398],[9800,676,15658],[10000,690,15919]];
+const CURVE_AVANTI_20 = [[1500,104,3741],[1600,110,3991],[1800,124,4490],[2000,138,4989],[2200,152,5498],[2400,165,6008],[2600,179,6518],[2800,193,7027],[3000,207,7537],[3200,220,8037],[3400,234,8538],[3600,248,9038],[3800,262,9538],[4000,276,10038],[4200,290,10511],[4400,303,10984],[4600,317,11458],[4800,331,11931],[5000,345,12404],[5200,358,12880],[5400,372,13355],[5600,386,13831],[5800,400,14307],[6000,414,14783],[6200,427,15238],[6400,441,15694],[6600,455,16149],[6800,468,16605],[7000,482,17060],[7200,496,17512],[7400,510,17963],[7600,524,18414],[7800,538,18866],[8000,552,19317],[8200,565,19811],[8400,579,20304],[8600,593,20798],[8800,607,21291],[9000,620,21784],[9200,634,22278],[9400,648,22771],[9600,662,23265],[9800,676,23758],[10000,690,24252]];
+const TOOLS = [
+  { name:'STEALTH 4',  maxNm:5450,  drive:'cassette', sizes:[55,65], curve:CURVE_STEALTH_4 },
+  { name:'STEALTH 8',  maxNm:10823, drive:'cassette', sizes:[75], curve:CURVE_STEALTH_8 },
+  { name:'STEALTH 14', maxNm:19324, drive:'cassette', sizes:[105,120], curve:CURVE_STEALTH_14 },
+  { name:'ICE 1',    maxNm:1741,  drive:'sq', family:'ICE',    sq:'3/4"',   sqRangeMm:[19,65], curve:CURVE_ICE_1 },
+  { name:'ICE 3',    maxNm:4180,  drive:'sq', family:'ICE',    sq:'1"',     sqRangeMm:[30,90], curve:CURVE_ICE_3 },
+  { name:'ICE 5',    maxNm:7266,  drive:'sq', family:'ICE',    sq:'1"1/2',  sqRangeMm:[45,160], curve:CURVE_ICE_5 },
+  { name:'AVANTI 10', maxNm:15919, drive:'sq', family:'AVANTI', sq:'1"1/2', sqRangeMm:[45,160], curve:CURVE_AVANTI_10 },
+  { name:'AVANTI 20', maxNm:24252, drive:'sq', family:'AVANTI', sq:'2"1/2', sqRangeMm:[90,210], curve:CURVE_AVANTI_20 },
+];
+
+// Courbes officielles pression (bar/psi) → couple (Nm), par outil hydraulique.
+// Sources : fiches HYTORC "Pressure/Torque Conversion Chart" (standard, par modèle).
+
+function pressureForTorque(curve, torqueNm){
+  if (!curve) return null;
+  const first = curve[0], last = curve[curve.length-1];
+  if (torqueNm > last[2]) return { overMax:true, psi:last[0], bar:last[1] };
+  if (torqueNm <= first[2]) return { underMin:true, psi:first[0], bar:first[1] };
+  for (let i=1;i<curve.length;i++){
+    if (curve[i][2] >= torqueNm){
+      const p0=curve[i-1], p1=curve[i];
+      const frac = (torqueNm-p0[2])/(p1[2]-p0[2]);
+      return {
+        psi: Math.round(p0[0] + frac*(p1[0]-p0[0])),
+        bar: Math.round(p0[1] + frac*(p1[1]-p0[1])),
+      };
+    }
+  }
+  return null;
+}
+
+function imperialKeyToMm(key){
+  if (typeof key === 'number') return key;
+  const parts = String(key).trim().split('"');
+  let whole = 0, frac = 0;
+  if (parts[0].includes('/')){
+    const [a,b] = parts[0].split('/').map(Number);
+    frac = a/b;
+  } else {
+    whole = parseFloat(parts[0]) || 0;
+    if (parts[1] && parts[1].includes('/')){
+      const [a,b] = parts[1].split('/').map(Number);
+      frac = a/b;
+    }
+  }
+  return (whole+frac)*25.4;
+}
+
+function recommendTools(torqueNm, socketMm){
+  if (torqueNm <= MANUAL_TOOLS_MAX){
+    const inRange = MANUAL_TOOLS.filter(tl => torqueNm >= tl.minNm && torqueNm <= tl.maxNm)
+      .sort((a,b)=>a.maxNm-b.maxNm)
+      .map(tl=>({ tool:tl, kind:'manual' }));
+    if (inRange.length) return inRange.slice(0,4);
+    return [{ tool:null, kind:'manual-too-low' }];
+  }
+
+  const iceMatches = TOOLS.filter(tl=>
+    tl.drive==='sq' && tl.family==='ICE' && socketMm>=tl.sqRangeMm[0] && socketMm<=tl.sqRangeMm[1] && tl.maxNm >= torqueNm
+  ).sort((a,b)=>a.maxNm-b.maxNm).map(tl=>({ tool:tl, kind:'sq' }));
+
+  const cassetteMatches = TOOLS.filter(tl=>
+    tl.drive==='cassette' && tl.sizes.some(s=>Math.abs(s-socketMm)<=1.5) && tl.maxNm >= torqueNm
+  ).sort((a,b)=>a.maxNm-b.maxNm).map(tl=>({ tool:tl, kind:'cassette' }));
+
+  const otherSqMatches = TOOLS.filter(tl=>
+    tl.drive==='sq' && tl.family!=='ICE' && socketMm>=tl.sqRangeMm[0] && socketMm<=tl.sqRangeMm[1] && tl.maxNm >= torqueNm
+  ).sort((a,b)=>a.maxNm-b.maxNm).map(tl=>({ tool:tl, kind:'sq' }));
+
+  const ordered = [...iceMatches, ...cassetteMatches, ...otherSqMatches];
+  if (ordered.length) return ordered.slice(0,4);
+
+  const famRank = (f)=> f==='ICE' ? 0 : 1;
+  const anyMatches = TOOLS.filter(tl=>tl.maxNm>=torqueNm)
+    .sort((a,b)=> famRank(a.family)-famRank(b.family) || a.maxNm-b.maxNm)
+    .map(tl=>({ tool:tl, kind:'fallback' }));
+  if (anyMatches.length) return anyMatches.slice(0,4);
+  return [null];
+}
 const DEFAULT_MATERIAL_PREFIX = {
   seat: 'ISO 3506-1 A4',
   bracket: 'ISO 3506-1 A4',
@@ -490,6 +906,11 @@ let state = {
   friction: 0.15,
   preload: 70,
   showAllMaterials: false,
+  showSensitivity: false,
+  showReference: false,
+  stagePct1: 50,
+  stagePct2: 75,
+  selectedToolName: null,
 };
 
 function t(key){ return I18N[state.lang][key]; }
@@ -565,6 +986,19 @@ function applyStaticText(){
   document.getElementById('tDRawLabel').textContent = t('dRawLabel');
   document.getElementById('toggleAllMaterialsBtn').textContent =
     state.showAllMaterials ? t('showRecommendedMaterials') : t('showAllMaterials');
+  document.getElementById('toggleSensitivityBtn').textContent =
+    state.showSensitivity ? t('hideSensitivity') : t('showSensitivity');
+  document.getElementById('sensitivityWrap').style.display = state.showSensitivity ? 'block' : 'none';
+
+  document.getElementById('tRefTitle').textContent = t('refTitle');
+  document.getElementById('toggleReferenceBtn').textContent =
+    state.showReference ? t('hideReference') : t('showReference');
+  document.getElementById('referenceWrap').style.display = state.showReference ? 'block' : 'none';
+  document.getElementById('refNote').textContent = t('refNote');
+  document.getElementById('refApplyNote').textContent = t('refApplyNote');
+  document.getElementById('referenceBody').innerHTML = t('refRows').map(row=>
+    `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`
+  ).join('');
   document.getElementById('langBtn').innerHTML = state.lang==='fr'
     ? '<span class="cur">FR</span> / EN' : 'FR / <span class="cur">EN</span>';
 }
@@ -576,6 +1010,25 @@ document.getElementById('langBtn').addEventListener('click', ()=>{
 
 document.getElementById('toggleAllMaterialsBtn').addEventListener('click', ()=>{
   state.showAllMaterials = !state.showAllMaterials;
+  render();
+});
+
+document.getElementById('toggleSensitivityBtn').addEventListener('click', ()=>{
+  state.showSensitivity = !state.showSensitivity;
+  render();
+});
+
+document.getElementById('toggleReferenceBtn').addEventListener('click', ()=>{
+  state.showReference = !state.showReference;
+  render();
+});
+
+document.getElementById('stagePct1').addEventListener('input', (e)=>{
+  state.stagePct1 = parseFloat(e.target.value) || 0;
+  render();
+});
+document.getElementById('stagePct2').addEventListener('input', (e)=>{
+  state.stagePct2 = parseFloat(e.target.value) || 0;
   render();
 });
 
@@ -724,6 +1177,7 @@ function render(){
   if (!bolt || !state.materialName || !app){
     resultEmpty.style.display = 'block';
     resultContent.style.display = 'none';
+    document.getElementById('sensitivityBody').innerHTML = '';
     return;
   }
 
@@ -776,12 +1230,128 @@ function render(){
   document.getElementById('torqueNm').innerHTML = fmt(T_Nm, 0) + '<span>N·m</span>';
   document.getElementById('torqueAlt').textContent = fmt(T_lbft, 0) + ' lb·ft';
 
+  const socketMm = imperialKeyToMm(bolt.key_size);
+  const recos = recommendTools(T_Nm, socketMm);
+
+  const toolRecoEl = document.getElementById('toolReco');
+  toolRecoEl.style.display = 'block';
+  document.getElementById('tToolRecoLabel').textContent = t('toolRecoLabel');
+  document.getElementById('converterLink').textContent = t('converterLinkText');
+  document.getElementById('tStagesTitle').textContent = t('stagesTitle');
+
+  function noteFor(reco){
+    if (!reco) return t('toolRecoNone');
+    if (reco.kind === 'manual-too-low') return t('toolRecoManualTooLow');
+    if (reco.kind === 'manual') return t('toolRecoManual')(`${reco.tool.minNm}–${reco.tool.maxNm}`, reco.tool.insert);
+    if (reco.kind === 'cassette') return t('toolRecoCassette')(fmt(socketMm,0));
+    if (reco.kind === 'sq') return t('toolRecoSq')(fmt(socketMm,0), reco.tool.sq);
+    if (reco.kind === 'fallback') return t('toolRecoFallback');
+    return t('toolRecoNone');
+  }
+
+  // Choix actif : celui sélectionné par l'utilisateur s'il figure toujours parmi les candidats, sinon le premier (optimal).
+  const validRecos = recos.filter(r=>r && r.tool);
+  let activeReco = validRecos.find(r=>r.tool.name === state.selectedToolName);
+  if (!activeReco) activeReco = validRecos[0] || null;
+  state.selectedToolName = activeReco ? activeReco.tool.name : null;
+
+  const pillsEl = document.getElementById('toolRecoPills');
+  pillsEl.innerHTML = '';
+  validRecos.forEach((reco, idx)=>{
+    const btn = document.createElement('button');
+    btn.className = 'tr-pill' + (reco.tool.name === state.selectedToolName ? ' active' : '');
+    btn.innerHTML = (idx===0 ? `<span class="tr-pill-badge">${t('optimalBadge')}</span>` : '') + reco.tool.name;
+    btn.onclick = ()=>{ state.selectedToolName = reco.tool.name; render(); };
+    pillsEl.appendChild(btn);
+  });
+
+  document.getElementById('toolRecoNote').textContent = noteFor(activeReco);
+  updateUtilGauge(activeReco);
+  updateStages(activeReco);
+
+  function updateUtilGauge(reco){
+    const wrap = document.getElementById('trUtilWrap');
+    if (!reco || !reco.tool || !reco.tool.maxNm){
+      wrap.style.display = 'none';
+      return;
+    }
+    wrap.style.display = 'flex';
+    document.getElementById('tUtilLabel').textContent = t('utilLabel');
+    const pct = Math.min(100, Math.max(0, (T_Nm / reco.tool.maxNm) * 100));
+    const color = pct <= 85 ? '#2FBF71' : (pct <= 95 ? '#E8A33D' : '#D6483A');
+    const fill = document.getElementById('utilFill');
+    fill.style.width = pct + '%';
+    fill.style.backgroundColor = color;
+    document.getElementById('utilPct').textContent = fmt(pct,0) + '%';
+  }
+
+  function updateStages(reco){
+    const wrap = document.getElementById('trStagesWrap');
+    const warnNoteEl = document.getElementById('stageWarnNote');
+    if (!reco || !reco.tool || !reco.tool.curve){
+      wrap.style.display = 'none';
+      return;
+    }
+    wrap.style.display = 'block';
+
+    // % minimum en dessous duquel la pression sort de la table (pas fiable) pour cet outil, à ce couple.
+    const minTorque = reco.tool.curve[0][2];
+    const minPct = T_Nm > 0 ? Math.min(99, Math.max(1, Math.ceil((minTorque / T_Nm) * 100))) : 1;
+
+    // Ajuste (clamp) les % saisis s'ils tombent sous le minimum fiable de l'outil actif.
+    let clamped = false;
+    if (state.stagePct1 < minPct){ state.stagePct1 = minPct; clamped = true; }
+    if (state.stagePct2 < minPct){ state.stagePct2 = minPct; clamped = true; }
+
+    const input1 = document.getElementById('stagePct1');
+    const input2 = document.getElementById('stagePct2');
+    input1.min = minPct;
+    input2.min = minPct;
+    input1.value = state.stagePct1;
+    input2.value = state.stagePct2;
+
+    function stageInfo(pct){
+      const stageTorque = Math.round(T_Nm * pct/100);
+      const p = pressureForTorque(reco.tool.curve, stageTorque);
+      if (!p) return { text:'—', underMin:false };
+      if (p.overMax) return { text:`${fmt(stageTorque,0)} N·m · ≥ ${p.bar} bar`, underMin:false };
+      if (p.underMin) return { text:`${fmt(stageTorque,0)} N·m · ≤ ${p.bar} bar`, underMin:true };
+      return { text:`${fmt(stageTorque,0)} N·m · ${p.bar} bar`, underMin:false };
+    }
+
+    const s1 = stageInfo(state.stagePct1);
+    const s2 = stageInfo(state.stagePct2);
+    const s3 = stageInfo(100);
+
+    document.getElementById('stageVal1').textContent = s1.text;
+    document.getElementById('stageVal2').textContent = s2.text;
+    document.getElementById('stageVal3').textContent = s3.text;
+
+    input1.closest('.stage-row').classList.toggle('warn', s1.underMin);
+    input2.closest('.stage-row').classList.toggle('warn', s2.underMin);
+
+    if (clamped){
+      warnNoteEl.style.display = 'block';
+      warnNoteEl.textContent = t('stageBelowMin')(minPct);
+    } else {
+      warnNoteEl.style.display = 'none';
+    }
+  }
+
   document.getElementById('dYield').textContent = fmt(matRow.yield,0) + ' MPa';
   document.getElementById('dAs').textContent = fmt(As,2) + ' mm²';
   document.getElementById('dFv').textContent = fmt(Fv/1000,2) + ' kN';
   document.getElementById('dPitch').textContent = (typeof pitch==='number'?fmt(pitch,2)+' mm':pitch) + ' / ' + fmt(bolt.d2,2)+' mm';
   document.getElementById('dRaw').textContent = fmt(T_Nm_raw,2) + ' N·m' + factorNote;
   document.getElementById('tFooterFormula').innerHTML = t('footerFormula')(formatFactor(factor));
+
+  const MU_LIST = [0.10, 0.12, 0.15, 0.18, 0.20, 0.25];
+  document.getElementById('sensitivityBody').innerHTML = MU_LIST.map(m=>{
+    const t_raw = factor * (0.16*pitchVal + 0.583*m*bolt.da + 0.5*m*bolt.d2) * Fv;
+    const t_round = Math.round((t_raw/1000) / 10) * 10;
+    const isCurrent = Math.abs(m - mu) < 0.005;
+    return `<tr class="${isCurrent?'current':''}"><td>µ = ${formatFactor(m)}</td><td>${fmt(t_round,0)} N·m</td></tr>`;
+  }).join('');
 
   const warnEl = document.getElementById('lowSizeWarn');
   if (mu <= 0 || preloadPct <= 0){
